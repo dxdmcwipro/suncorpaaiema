@@ -9,41 +9,59 @@
   min-height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  overflow: hidden;
 }
 
 .hero-promo h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   color: var(--aa-blue);
   font-size: var(--heading-font-size-xxl);
   line-height: 1.05;
   font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 16px;
+  text-shadow: 0 1px 2px rgb(255 255 255 / 50%);
 }
 
 .hero-promo p {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 4px 0;
 }
 
-.hero-promo picture {
+/* First row = background image row */
+.hero-promo > div:first-child {
   position: absolute;
   z-index: -1;
   inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
 }
 
-.hero-promo img {
-  object-fit: cover;
-  width: 100%;
+.hero-promo > div:first-child p {
+  margin: 0;
   height: 100%;
 }
 
+.hero-promo > div:first-child img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Second row = content overlay */
+.hero-promo > div:nth-child(2) {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .hero-promo .button-wrapper {
-  margin: 8px 0;
+  margin: 4px 0;
+  display: inline-block;
+}
+
+.hero-promo .button-wrapper + .button-wrapper {
+  margin-left: 8px;
 }
 
 .hero-promo a.button {
@@ -52,6 +70,14 @@
   font-weight: 600;
   min-height: var(--button-min-height);
   transition: var(--button-transition);
+}
+
+.hero-promo.no-image {
+  background-color: var(--light-color);
+}
+
+.hero-promo.no-image h1 {
+  text-shadow: none;
 }
 
 @media (width >= 900px) {
@@ -63,6 +89,9 @@
   .hero-promo h1 {
     font-size: 48px;
     max-width: 600px;
-    margin-left: 0;
+  }
+
+  .hero-promo > div:nth-child(2) {
+    padding: 0;
   }
 }

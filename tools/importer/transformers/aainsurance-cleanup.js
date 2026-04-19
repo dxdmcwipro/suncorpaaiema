@@ -30,6 +30,13 @@ export default function transform(hookName, element, payload) {
       'iframe',
     ]);
 
+    // Rewrite Contentful CDN proxy URLs to direct Contentful URLs
+    // Original: https://www.aainsurance.co.nz/x/ctf/70piar1ns1oi/...
+    // Fixed:    https://images.ctfassets.net/70piar1ns1oi/...
+    element.querySelectorAll('img[src*="/x/ctf/"]').forEach((img) => {
+      img.src = img.src.replace(/https?:\/\/www\.aainsurance\.co\.nz\/x\/ctf\//, 'https://images.ctfassets.net/');
+    });
+
     // Remove data attributes and event handlers
     element.querySelectorAll('*').forEach((el) => {
       el.removeAttribute('data-track');

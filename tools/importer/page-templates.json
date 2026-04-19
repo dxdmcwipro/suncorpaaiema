@@ -1,0 +1,98 @@
+{
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.aainsurance.co.nz/"
+      ],
+      "description": "AA Insurance homepage with hero promo banner, product icon grid, feature spotlight, news cards, value propositions, and trust badges",
+      "blocks": [
+        {
+          "name": "hero-promo",
+          "instances": [
+            "div.hero-abl.hero-abl--style-default"
+          ]
+        },
+        {
+          "name": "cards-homepage",
+          "instances": [
+            "div.content-blocks > div.columns.mobile-lower-50",
+            "div.card-grid:has(.card-grid-columns-1)",
+            "div.card-grid:has(.card-grid-columns-3)"
+          ]
+        },
+        {
+          "name": "columns-badges",
+          "instances": [
+            "div.columns.why-choose-aai-footer",
+            "div.columns.text__align-center"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero Banner",
+          "selector": "div.hero-abl.hero-abl--style-default",
+          "style": null,
+          "blocks": [
+            "hero-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Product Icon Grid",
+          "selector": "div.content-blocks > div.columns.mobile-lower-50",
+          "style": null,
+          "blocks": [
+            "cards-homepage"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Feature Spotlight",
+          "selector": "div.card-grid:has(.card-grid-columns-1)",
+          "style": null,
+          "blocks": [
+            "cards-homepage"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "News Announcement Cards",
+          "selector": "div.card-grid:has(.card-grid-columns-3)",
+          "style": null,
+          "blocks": [
+            "cards-homepage"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "Why Choose AA Insurance",
+          "selector": "div.columns.why-choose-aai-footer",
+          "style": null,
+          "blocks": [
+            "columns-badges"
+          ],
+          "defaultContent": [
+            "h2.columns__heading"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "Trust Badges",
+          "selector": "div.columns.text__align-center",
+          "style": null,
+          "blocks": [
+            "columns-badges"
+          ],
+          "defaultContent": []
+        }
+      ]
+    }
+  ]
+}

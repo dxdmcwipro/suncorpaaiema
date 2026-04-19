@@ -1,0 +1,40 @@
+{
+  "variantName": "columns-badges",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-04-19T14:28:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.aainsurance.co.nz/",
+    "originPage": "AA Insurance homepage",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "purpose": "trust-badges",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "image + heading + text + link",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "trust badge sections",
+      "value proposition columns",
+      "award/certification displays",
+      "icon-based feature highlights"
+    ],
+    "notSuitableFor": [
+      "image-heavy side-by-side layouts",
+      "comparison columns with detailed content",
+      "text-only column layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-19T14:28:00.000Z"
+  }
+}

@@ -1,0 +1,33 @@
+.columns-badges > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-badges img {
+  width: 100%;
+}
+
+.columns-badges > div > div {
+  order: 1;
+}
+
+.columns-badges > div > .columns-badges-img-col {
+  order: 0;
+}
+
+.columns-badges > div > .columns-badges-img-col img {
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-badges > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-badges > div > div {
+    flex: 1;
+    order: unset;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.aainsurance.co.nz/",
+  "path": "index",
+  "timestamp": "2026-04-19T14:33:44.747Z",
+  "title": "Award-winning home, contents & car Insurance | AA Insurance",
+  "template": "homepage",
+  "blocks": [
+    "hero-promo",
+    "cards-homepage",
+    "cards-homepage",
+    "cards-homepage",
+    "columns-badges",
+    "columns-badges"
+  ]
+}

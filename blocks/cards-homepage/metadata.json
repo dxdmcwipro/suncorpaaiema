@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-homepage",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-04-19T14:28:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.aainsurance.co.nz/",
+    "originPage": "AA Insurance homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "homepage-cards",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + text + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "homepage feature cards",
+      "product icon grids",
+      "news and announcement cards",
+      "spotlight cards with images"
+    ],
+    "notSuitableFor": [
+      "text-only card lists",
+      "pricing comparison cards",
+      "team member cards"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-19T14:28:00.000Z"
+  }
+}

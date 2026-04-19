@@ -1,52 +1,67 @@
-/* header and nav layout */
-header .nav-wrapper {
-  background-color: var(--background-color);
-  width: 100%;
-  z-index: 2;
-  position: fixed;
+/* stylelint-disable no-descending-specificity */
+
+/* ==========================================================================
+   Header / primary navigation
+   Design reference: https://www.aainsurance.co.nz/
+   Target layout (desktop):
+     [AA badge + Insurance]   Our Insurance ▾   Manage Policy ▾   Claim ▾        Help & Contact  📞  🔍  👤
+   ========================================================================== */
+
+/* ---- Local tokens ---- */
+header {
+  --header-height-mobile: 64px;
+  --header-height-desktop: 80px;
+  --header-height-scrolled: 64px;
+  --header-bg: var(--aa-yellow);
+  --header-fg: var(--aa-dark-grey);
+  --header-accent: var(--aa-blue);
+  --header-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+  --header-transition: 0.25s ease;
 }
 
+/* ---- Sticky wrapper ---- */
+header .nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: var(--header-bg);
+  transition: box-shadow var(--header-transition);
+}
+
+header .nav-wrapper.is-scrolled {
+  box-shadow: var(--header-shadow);
+}
+
+/* ---- Nav grid (mobile-first) ---- */
 header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools' var(--nav-height)
-    'sections sections sections' 1fr / auto 1fr auto;
+    'hamburger brand tools' var(--header-height-mobile)
+    'sections  sections sections' 1fr
+    / auto 1fr auto;
   align-items: center;
-  gap: 0 24px;
-  margin: auto;
-  max-width: 1248px;
-  height: var(--nav-height);
-  padding: 0 24px;
+  gap: 0 12px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px;
+  height: var(--header-height-mobile);
+  color: var(--header-fg);
   font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  transition: height var(--header-transition);
 }
 
+/* Mobile drawer expanded */
 header nav[aria-expanded='true'] {
   grid-template:
-    'hamburger brand' var(--nav-height)
-    'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr;
+    'hamburger brand tools' var(--header-height-mobile)
+    'sections  sections sections' 1fr
+    / auto 1fr auto;
+  height: 100dvh;
   overflow-y: auto;
-  min-height: 100dvh;
-}
-
-@media (width >= 900px) {
-  header .nav-wrapper {
-    position: relative;
-  }
-
-  header nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 0 32px;
-    max-width: 1264px;
-    padding: 0 32px;
-  }
-
-  header nav[aria-expanded='true'] {
-    min-height: 0;
-    overflow: visible;
-  }
+  background-color: var(--header-bg);
 }
 
 header nav p {
@@ -55,28 +70,34 @@ header nav p {
 }
 
 header nav a:any-link {
-  color: currentcolor;
+  color: var(--header-fg);
+  text-decoration: none;
+  transition: color var(--header-transition);
 }
 
-/* hamburger */
+header nav a:hover {
+  color: var(--header-accent);
+}
+
+/* ==========================================================================
+   Hamburger (mobile only)
+   ========================================================================== */
 header nav .nav-hamburger {
   grid-area: hamburger;
-  height: 22px;
   display: flex;
   align-items: center;
+  height: 24px;
 }
 
 header nav .nav-hamburger button {
-  height: 22px;
+  width: 32px;
+  height: 32px;
   margin: 0;
-  border: 0;
-  border-radius: 0;
   padding: 0;
-  background-color: var(--background-color);
+  border: 0;
+  background: transparent;
   color: inherit;
-  overflow: initial;
-  text-overflow: initial;
-  white-space: initial;
+  cursor: pointer;
 }
 
 header nav .nav-hamburger-icon,
@@ -85,188 +106,320 @@ header nav .nav-hamburger-icon::after {
   box-sizing: border-box;
   display: block;
   position: relative;
-  width: 20px;
+  width: 22px;
+  height: 2px;
+  background-color: currentcolor;
+  border-radius: 2px;
+  transition: transform var(--header-transition), top var(--header-transition);
 }
 
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
   content: '';
   position: absolute;
-  background: currentcolor;
+  left: 0;
 }
 
-header nav[aria-expanded='false'] .nav-hamburger-icon,
-header nav[aria-expanded='false'] .nav-hamburger-icon::before,
-header nav[aria-expanded='false'] .nav-hamburger-icon::after {
-  height: 2px;
-  border-radius: 2px;
-  background: currentcolor;
-}
-
-header nav[aria-expanded='false'] .nav-hamburger-icon::before {
-  top: -6px;
-}
-
-header nav[aria-expanded='false'] .nav-hamburger-icon::after {
-  top: 6px;
-}
+header nav[aria-expanded='false'] .nav-hamburger-icon::before { top: -7px; }
+header nav[aria-expanded='false'] .nav-hamburger-icon::after  { top: 7px; }
 
 header nav[aria-expanded='true'] .nav-hamburger-icon {
-  height: 22px;
+  background: transparent;
 }
 
-header nav[aria-expanded='true'] .nav-hamburger-icon::before,
-header nav[aria-expanded='true'] .nav-hamburger-icon::after {
-  top: 3px;
-  left: 1px;
+header nav[aria-expanded='true'] .nav-hamburger-icon::before {
+  top: 0;
   transform: rotate(45deg);
-  transform-origin: 2px 1px;
-  width: 24px;
-  height: 2px;
-  border-radius: 2px;
 }
 
 header nav[aria-expanded='true'] .nav-hamburger-icon::after {
-  top: unset;
-  bottom: 3px;
+  top: 0;
   transform: rotate(-45deg);
 }
 
-@media (width >= 900px) {
-  header nav .nav-hamburger {
-    display: none;
-    visibility: hidden;
-  }
-}
-
-/* brand */
+/* ==========================================================================
+   Brand / logo — circular "AA" badge + "Insurance" wordmark
+   ========================================================================== */
 header .nav-brand {
   grid-area: brand;
-  flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+header .nav-brand a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--header-fg);
   line-height: 1;
 }
 
-header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+/* Official AA Insurance SVG — badge + "Insurance" wordmark are both in one asset.
+   Height drives scale; width is intrinsic to the SVG's 184:64 aspect ratio. */
+header .nav-brand-logo {
+  display: block;
+  height: 40px;
+  width: auto;
 }
 
-/* sections */
+/* ==========================================================================
+   Sections (Our Insurance / Manage Policy / Claim)
+   ========================================================================== */
 header nav .nav-sections {
   grid-area: sections;
-  flex: 1 1 auto;
   display: none;
   visibility: hidden;
+  background-color: var(--header-bg);
 }
 
 header nav[aria-expanded='true'] .nav-sections {
   display: block;
   visibility: visible;
   align-self: start;
+  padding: 8px 0;
 }
 
 header nav .nav-sections ul {
   list-style: none;
-  padding-left: 0;
-  font-size: var(--body-font-size-s);
+  margin: 0;
+  padding: 0;
 }
 
+/* Mobile: stacked tap targets with "+" chevron on dropdown parents */
 header nav .nav-sections ul > li {
-  font-weight: 500;
+  position: relative;
+  padding: 14px 16px;
+  font-weight: 600;
+  border-bottom: 1px solid rgb(38 38 38 / 10%);
 }
 
-header nav .nav-sections ul > li > ul {
-  margin-top: 0;
+header nav .nav-sections .nav-drop::after {
+  content: '+';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform var(--header-transition);
 }
 
-header nav .nav-sections ul > li > ul > li {
+header nav .nav-sections .nav-drop[aria-expanded='true']::after {
+  content: '−';
+}
+
+/* Collapse nested menus by default, reveal on parent expand */
+header nav .nav-sections ul ul {
+  display: none;
+  margin-top: 8px;
+  padding-left: 12px;
+}
+
+header nav .nav-sections li[aria-expanded='true'] > ul {
+  display: block;
+}
+
+header nav .nav-sections ul ul > li {
+  padding: 8px 0;
+  border: 0;
   font-weight: 400;
 }
 
+/* ==========================================================================
+   Tools — "Help & Contact" label + phone/search/account icons
+   ========================================================================== */
+header nav .nav-tools {
+  grid-area: tools;
+  display: flex;
+  align-items: center;
+}
+
+header nav .nav-tools ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+header nav .nav-tools a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--header-fg);
+  font-weight: 600;
+  font-size: var(--body-font-size-s);
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: background-color var(--header-transition);
+}
+
+header nav .nav-tools a:hover {
+  background-color: rgb(38 38 38 / 8%);
+  color: var(--header-fg);
+}
+
+/* Icon-only tool links (phone, search, account) */
+header nav .nav-tools .nav-tool-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+header nav .nav-tools .nav-tool-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentcolor;
+}
+
+/* On mobile, keep only the account icon visible to save space;
+   hamburger exposes the rest of the tools. */
+@media (width < 900px) {
+  header nav .nav-tools li:not(:last-child) { display: none; }
+}
+
+/* ==========================================================================
+   Desktop (≥ 900px)
+   ========================================================================== */
 @media (width >= 900px) {
+  header nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: var(--header-height-desktop);
+    padding: 0 40px;
+  }
+
+  header .nav-wrapper.is-scrolled nav {
+    height: var(--header-height-scrolled);
+  }
+
+  header nav[aria-expanded='true'] {
+    height: var(--header-height-desktop);
+    overflow: visible;
+  }
+
+  header nav .nav-hamburger { display: none; }
+
+  /* Brand on the left, fixed size */
+  header .nav-brand { flex: 0 0 auto; }
+
+  header .nav-brand-logo {
+    height: 48px;
+  }
+
+  /* Sections fill the middle, left-aligned close to brand */
   header nav .nav-sections {
-    display: block;
+    display: flex;
     visibility: visible;
-    white-space: nowrap;
+    flex: 1 1 auto;
+    padding: 0;
+    background: transparent;
   }
 
-  header nav[aria-expanded='true'] .nav-sections {
-    align-self: unset;
+  header nav .nav-sections > div,
+  header nav .nav-sections > div > ul {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 100%;
   }
 
-  header nav .nav-sections .nav-drop {
+  header nav .nav-sections > div > ul > li {
     position: relative;
-    padding-right: 16px;
+    padding: 0;
+    border: 0;
+    font-size: var(--body-font-size-m);
+    font-weight: 600;
+    white-space: nowrap;
     cursor: pointer;
+  }
+
+  /* Chevron (▾) after dropdown parents */
+  header nav .nav-sections .nav-drop {
+    padding-right: 20px;
   }
 
   header nav .nav-sections .nav-drop::after {
     content: '';
-    display: inline-block;
     position: absolute;
-    top: 0.5em;
-    right: 2px;
-    transform: rotate(135deg);
-    width: 6px;
-    height: 6px;
-    border: 2px solid currentcolor;
-    border-radius: 0 1px 0 0;
-    border-width: 2px 2px 0 0;
+    right: 0;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border: solid currentcolor;
+    border-width: 0 2px 2px 0;
+    transform: translateY(-75%) rotate(45deg);
+    font-size: 0;
+    line-height: 0;
+    transition: transform var(--header-transition);
   }
 
   header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    top: unset;
-    bottom: 0.5em;
-    transform: rotate(315deg);
+    transform: translateY(-25%) rotate(-135deg);
   }
 
-  header nav .nav-sections ul {
-    display: flex;
-    gap: 24px;
-    margin: 0;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li {
-    flex: 0 1 auto;
-    position: relative;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li > ul {
+  /* Floating dropdown panel (white card, shadow) */
+  header nav .nav-sections > div > ul > li > ul,
+  header nav .nav-sections ul ul {
     display: none;
-    position: relative;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: -16px;
+    min-width: 240px;
+    padding: 12px 0;
+    margin: 0;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    font-weight: 400;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+  header nav .nav-sections > div > ul > li[aria-expanded='true'] > ul {
     display: block;
-    position: absolute;
-    left: -24px;
-    width: 200px;
-    top: 150%;
-    padding: 16px;
+  }
+
+  header nav .nav-sections > div > ul > li > ul > li {
+    padding: 0;
+    font-weight: 400;
+  }
+
+  header nav .nav-sections > div > ul > li > ul > li > a {
+    display: block;
+    padding: 10px 20px;
+    font-size: var(--body-font-size-s);
+  }
+
+  header nav .nav-sections > div > ul > li > ul > li > a:hover {
     background-color: var(--light-color);
-    white-space: initial;
+    color: var(--header-accent);
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 16px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--light-color);
+  /* Tools on the far right */
+  header nav .nav-tools {
+    flex: 0 0 auto;
+    margin-left: auto;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    padding: 8px 0;
+  header nav .nav-tools ul {
+    gap: 4px;
+  }
+
+  header nav .nav-tools a {
+    font-size: var(--body-font-size-m);
   }
 }
 
-/* tools */
-header nav .nav-tools {
-  grid-area: tools;
+/* ==========================================================================
+   Motion preferences
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  header .nav-wrapper,
+  header nav,
+  header nav * {
+    transition: none !important;
+  }
 }

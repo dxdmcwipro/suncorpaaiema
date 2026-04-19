@@ -4,6 +4,16 @@ import { loadFragment } from '../fragment/fragment.js';
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
+// Inline SVGs for the utility/tool links in the header.
+// Phone uses a tilted handset with a line-style curl to match the AA reference.
+const TOOL_ICONS = {
+  phone: '<svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 4.8c.2-1 1-1.8 2-1.8h2.2c.8 0 1.5.6 1.7 1.4l.7 2.8c.2.7-.1 1.4-.7 1.8l-1.6 1.1a13 13 0 0 0 5.1 5.1l1.1-1.6c.4-.6 1.1-.9 1.8-.7l2.8.7c.8.2 1.4.9 1.4 1.7V18c0 1-.8 1.8-1.8 2a17 17 0 0 1-14.7-15.2z"/></svg>',
+  search: '<svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>',
+  account: '<svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6"/></svg>',
+};
+
+const AA_LOGO_SRC = '/icons/aa-insurance-logo.svg';
+
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -137,16 +147,39 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
+  // Decorate the brand link: official AA Insurance SVG logo (badge + wordmark)
+  const logoLink = navBrand && navBrand.querySelector('a');
+  if (logoLink) {
+    const label = logoLink.textContent.trim() || 'AA Insurance';
+    logoLink.innerHTML = `<img class="nav-brand-logo" src="${AA_LOGO_SRC}" alt="${label}" width="184" height="64">`;
+    logoLink.setAttribute('aria-label', label);
+  }
+
+  // Decorate the tools section: first item stays a plain label, the rest become icon buttons
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    navTools.querySelectorAll('a').forEach((a) => {
+      const key = a.textContent.trim().toLowerCase();
+      const svg = TOOL_ICONS[key];
+      if (svg) {
+        a.setAttribute('aria-label', a.textContent.trim());
+        a.innerHTML = svg;
+        a.classList.add('nav-tool-icon');
+      }
+    });
+  }
+
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
-        if (isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        }
+      navSection.addEventListener('click', (e) => {
+        // On mobile, only toggle when the click is on the parent row itself,
+        // not on a child link (so tapping a sub-item still navigates).
+        if (!isDesktop.matches && e.target.closest('a') && e.target.closest('a') !== navSection) return;
+        const expanded = navSection.getAttribute('aria-expanded') === 'true';
+        if (isDesktop.matches) toggleAllNavSections(navSections);
+        navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
       });
     });
   }
@@ -168,4 +201,12 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Toggle .is-scrolled on the wrapper once the page scrolls past 8px.
+  // Drives the shadow + shrink-on-scroll effect in header.css.
+  const onScroll = () => {
+    navWrapper.classList.toggle('is-scrolled', window.scrollY > 8);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }

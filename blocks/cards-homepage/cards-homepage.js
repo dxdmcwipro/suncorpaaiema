@@ -1,7 +1,16 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 function isIconImage(img) {
-  return img && img.src && img.src.includes('/icons/');
+  if (!img) return false;
+  const src = img.src || '';
+  // Check for /icons/ path (local dev) or .svg extension (AEM rewrites to media_*.svg)
+  if (src.includes('/icons/')) return true;
+  if (src.endsWith('.svg') || src.includes('.svg?')) return true;
+  // Check for small explicit dimensions (icon images have width="36" height="36")
+  const w = parseInt(img.getAttribute('width'), 10);
+  const h = parseInt(img.getAttribute('height'), 10);
+  if (w > 0 && w <= 48 && h > 0 && h <= 48) return true;
+  return false;
 }
 
 export default function decorate(block) {

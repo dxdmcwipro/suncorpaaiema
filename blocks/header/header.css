@@ -374,13 +374,24 @@ header nav .nav-tools .nav-tool-icon svg {
     position: absolute;
     top: calc(100% + 12px);
     left: -16px;
-    min-width: 240px;
-    padding: 12px 0;
+    min-width: 280px;
+    max-width: 600px;
+    padding: 16px 0;
     margin: 0;
     background-color: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 15%);
     font-weight: 400;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+  }
+
+  /* Mega-menu: wide multi-column for large dropdown lists */
+  header nav .nav-sections li:first-child > ul {
+    min-width: 480px;
+    columns: 2;
+    column-gap: 0;
   }
 
   header nav .nav-sections li[aria-expanded='true'] > ul {
@@ -390,17 +401,21 @@ header nav .nav-tools .nav-tool-icon svg {
   header nav .nav-sections li > ul > li {
     padding: 0;
     font-weight: 400;
+    break-inside: avoid;
   }
 
   header nav .nav-sections li > ul > li > a {
     display: block;
-    padding: 10px 20px;
+    padding: 10px 24px;
     font-size: var(--body-font-size-s);
+    font-weight: 600;
+    color: var(--header-accent);
+    white-space: nowrap;
   }
 
   header nav .nav-sections li > ul > li > a:hover {
     background-color: var(--light-color);
-    color: var(--header-accent);
+    color: var(--accent-hover-color);
   }
 
   /* Tools on the far right */

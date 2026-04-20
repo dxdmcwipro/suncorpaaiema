@@ -325,14 +325,15 @@ header nav .nav-tools .nav-tool-icon svg {
   }
 
   header nav .nav-sections > div,
-  header nav .nav-sections > div > ul {
+  header nav .nav-sections > div > div,
+  header nav .nav-sections ul {
     display: flex;
     align-items: center;
     gap: 28px;
     height: 100%;
   }
 
-  header nav .nav-sections > div > ul > li {
+  header nav .nav-sections ul > li {
     position: relative;
     padding: 0;
     border: 0;
@@ -367,7 +368,7 @@ header nav .nav-tools .nav-tool-icon svg {
   }
 
   /* Floating dropdown panel (white card, shadow) */
-  header nav .nav-sections > div > ul > li > ul,
+  header nav .nav-sections li > ul,
   header nav .nav-sections ul ul {
     display: none;
     position: absolute;
@@ -382,22 +383,22 @@ header nav .nav-tools .nav-tool-icon svg {
     font-weight: 400;
   }
 
-  header nav .nav-sections > div > ul > li[aria-expanded='true'] > ul {
+  header nav .nav-sections li[aria-expanded='true'] > ul {
     display: block;
   }
 
-  header nav .nav-sections > div > ul > li > ul > li {
+  header nav .nav-sections li > ul > li {
     padding: 0;
     font-weight: 400;
   }
 
-  header nav .nav-sections > div > ul > li > ul > li > a {
+  header nav .nav-sections li > ul > li > a {
     display: block;
     padding: 10px 20px;
     font-size: var(--body-font-size-s);
   }
 
-  header nav .nav-sections > div > ul > li > ul > li > a:hover {
+  header nav .nav-sections li > ul > li > a:hover {
     background-color: var(--light-color);
     color: var(--header-accent);
   }

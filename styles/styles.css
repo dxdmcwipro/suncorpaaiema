@@ -10,37 +10,56 @@
  * governing permissions and limitations under the License.
  */
 
+/* fallback for AA Insurance heading font fs_lola_web */
+@font-face {
+  font-family: fs-lola-fallback;
+  size-adjust: 93.53%;
+  ascent-override: 85.9%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+  font-weight: 700;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
+}
+
 :root {
-  /* AA Insurance colors */
+  /* AA Insurance brand colors — extracted from original site CSS */
   --background-color: #fff;
-  --light-color: #f5f5f5;
+  --light-color: #f2f1ed;
   --dark-color: #262626;
   --text-color: #262626;
+  --text-muted: #595959;
   --link-color: #0d59bf;
-  --link-hover-color: #0a4694;
+  --link-hover-color: #09438f;
   --accent-color: #0d59bf;
-  --accent-hover-color: #0a4694;
+  --accent-hover-color: #09438f;
+  --accent-light: #e9f2ff;
+  --accent-highlight: #bdd9ff;
   --aa-yellow: #ffd400;
+  --aa-yellow-light: #fff4bf;
   --aa-blue: #0d59bf;
   --aa-dark-grey: #262626;
+  --aa-mid-grey: #595959;
+  --aa-light-grey: #dad9d5;
+  --aa-bg-grey: #faf9f5;
   --white: #fff;
 
-  /* fonts — AA Insurance uses Arial system font + fs_lola_web for H1 */
+  /* fonts — original uses fs_lola_web for H1, Arial for everything else */
   --body-font-family: arial, sans-serif;
   --heading-font-family: arial, sans-serif;
+  --heading-h1-font-family: fs_lola_web, fs-lola-fallback, arial, sans-serif;
 
-  /* body sizes */
+  /* body sizes — from original: font-size: 1rem = 16px, line-height: 1.5rem = 24px */
   --body-font-size-m: 16px;
   --body-font-size-s: 14px;
   --body-font-size-xs: 12px;
 
-  /* heading sizes (mobile-first) */
-  --heading-font-size-xxl: 32px;
-  --heading-font-size-xl: 28px;
-  --heading-font-size-l: 24px;
-  --heading-font-size-m: 20px;
-  --heading-font-size-s: 18px;
-  --heading-font-size-xs: 16px;
+  /* heading sizes (mobile-first) — from original CSS */
+  --heading-font-size-xxl: 2.5rem;
+  --heading-font-size-xl: 1.75rem;
+  --heading-font-size-l: 1.5rem;
+  --heading-font-size-m: 1.25rem;
+  --heading-font-size-s: 1.125rem;
+  --heading-font-size-xs: 1rem;
 
   /* spacing */
   --spacing-xs: 8px;
@@ -50,29 +69,36 @@
   --spacing-xl: 48px;
   --spacing-xxl: 64px;
 
-  /* buttons */
+  /* buttons — from original: border-radius: 8px, padding: 12px 24px, min-height: 48px */
   --button-border-radius: 8px;
   --button-padding: 12px 24px;
-  --button-transition: background-color 0.2s;
+  --button-transition: background-color 0.2s ease;
   --button-min-height: 48px;
+  --button-min-width: 48px;
 
-  /* cards */
+  /* cards — from original .grid-card-shadow */
   --card-border-radius: 16px;
-  --card-shadow: rgb(0 0 0 / 20%) 0px 3px 3px -2px, rgb(0 0 0 / 10%) 0px 3px 4px 0px, rgb(0 0 0 / 10%) 0px 1px 8px 0px;
+  --card-shadow: 0 3px 3px -2px rgb(0 0 0 / 20%), 0 3px 4px rgb(0 0 0 / 10%), 0 1px 8px rgb(0 0 0 / 10%);
 
-  /* nav height */
+  /* nav height — 64px mobile, 96px desktop (from original) */
   --nav-height: 64px;
 }
 
-@media (width >= 900px) {
+@media (width >= 769px) {
   :root {
-    /* heading sizes — desktop */
-    --heading-font-size-xxl: 48px;
-    --heading-font-size-xl: 32px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 24px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 16px;
+    /* heading sizes — desktop from original */
+    --heading-font-size-xxl: 3rem;
+    --heading-font-size-xl: 2rem;
+    --heading-font-size-l: 1.5rem;
+    --heading-font-size-m: 1.25rem;
+    --heading-font-size-s: 1.125rem;
+    --heading-font-size-xs: 1rem;
+  }
+}
+
+@media (width >= 992px) {
+  :root {
+    --nav-height: 96px;
   }
 }
 
@@ -104,41 +130,64 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* Typography — from original: font-weight: 500 for headings (700 override per level) */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-top: 0;
+  margin-bottom: 8px;
   font-family: var(--heading-font-family);
   font-weight: 700;
-  line-height: 1.25;
-  scroll-margin: 40px;
+  line-height: 1.2;
+  scroll-margin: calc(var(--nav-height) + 16px);
   color: var(--text-color);
 }
 
+/* H1 uses the AA branded heading font (fs_lola_web) */
 h1 {
+  font-family: var(--heading-h1-font-family);
   font-size: var(--heading-font-size-xxl);
   color: var(--aa-blue);
   line-height: 1.05;
 }
 
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
-h6 { font-size: var(--heading-font-size-xs); }
+h2 {
+  font-size: var(--heading-font-size-xl);
+  line-height: 1.14;
+}
 
+h3 {
+  font-size: var(--heading-font-size-l);
+  line-height: 1.17;
+}
+
+h4 {
+  font-size: var(--heading-font-size-m);
+  line-height: 1.2;
+}
+
+h5 {
+  font-size: var(--heading-font-size-s);
+  line-height: 1.33;
+}
+
+h6 {
+  font-size: var(--heading-font-size-xs);
+  line-height: 1.5;
+}
+
+/* Body text — from original: margin: 0 0 8px */
 p,
 dl,
 ol,
 ul,
 pre,
 blockquote {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 
 code,
@@ -165,7 +214,7 @@ button {
   font: inherit;
 }
 
-/* links */
+/* links — from original: color: #0d59bf, no text-decoration, hover: #09438f */
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
@@ -174,12 +223,12 @@ a:any-link {
 
 a:hover {
   color: var(--link-hover-color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
-/* buttons */
+/* buttons — from original .button class */
 p.button-wrapper {
-  margin: 12px 0;
+  margin: 8px 8px 8px 0;
 }
 
 a.button:any-link,
@@ -190,7 +239,7 @@ button.button {
   justify-content: center;
   max-width: 100%;
   margin: 0;
-  border: 2px solid transparent;
+  border: none;
   border-radius: var(--button-border-radius);
   padding: var(--button-padding);
   font: inherit;
@@ -198,24 +247,35 @@ button.button {
   font-size: var(--body-font-size-m);
   line-height: 1.5;
   text-decoration: none;
+  text-align: center;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   min-height: var(--button-min-height);
+  min-width: var(--button-min-width);
   transition: var(--button-transition);
+  background-color: var(--light-color);
+  color: var(--aa-blue);
+  user-select: none;
+  width: 100%;
+}
+
+a.button:focus,
+button.button:focus {
+  box-shadow: 0 0 2px 2px var(--accent-hover-color);
 }
 
 a.button[aria-disabled="true"],
 button.button:disabled {
   cursor: not-allowed;
   pointer-events: none;
+  color: #9b9a96;
 }
 
-/* primary button — AA blue filled */
+/* primary button — from original .button--primary */
 a.button.primary,
 button.button.primary {
-  border-color: var(--aa-blue);
   background-color: var(--aa-blue);
   color: var(--white);
 }
@@ -224,26 +284,19 @@ a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--accent-hover-color);
   background-color: var(--accent-hover-color);
   color: var(--white);
 }
 
 a.button.primary[aria-disabled="true"],
-a.button.primary[aria-disabled="true"]:hover,
-a.button.primary[aria-disabled="true"]:focus-visible,
-button.button.primary:disabled,
-button.button.primary:disabled:hover,
-button.button.primary:disabled:focus-visible {
+button.button.primary:disabled {
   background-color: var(--light-color);
-  border-color: var(--light-color);
   color: var(--dark-color);
 }
 
-/* secondary button — white with blue border */
+/* secondary button — from original .button--secondary */
 a.button.secondary,
 button.button.secondary {
-  border-color: transparent;
   background-color: var(--white);
   color: var(--aa-blue);
   box-shadow: inset 0 0 0 1px var(--aa-blue);
@@ -253,27 +306,21 @@ a.button.secondary:hover,
 a.button.secondary:focus-visible,
 button.button.secondary:hover,
 button.button.secondary:focus-visible {
-  background-color: var(--light-color);
-  color: var(--accent-hover-color);
-  box-shadow: inset 0 0 0 1px var(--accent-hover-color);
+  background-color: var(--white);
+  box-shadow: inset 0 0 0 2px var(--aa-blue);
+  color: var(--aa-blue);
 }
 
 a.button.secondary[aria-disabled="true"],
-a.button.secondary[aria-disabled="true"]:hover,
-a.button.secondary[aria-disabled="true"]:focus-visible,
-button.button.secondary:disabled,
-button.button.secondary:disabled:hover,
-button.button.secondary:disabled:focus-visible {
+button.button.secondary:disabled {
   background-color: var(--light-color);
-  border-color: var(--light-color);
   color: var(--dark-color);
   box-shadow: none;
 }
 
-/* accent button — same as primary for AA Insurance */
+/* accent button */
 a.button.accent,
 button.button.accent {
-  border-color: var(--aa-blue);
   background-color: var(--aa-blue);
   color: var(--white);
 }
@@ -282,18 +329,12 @@ a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--accent-hover-color);
   background-color: var(--accent-hover-color);
 }
 
 a.button.accent[aria-disabled="true"],
-a.button.accent[aria-disabled="true"]:hover,
-a.button.accent[aria-disabled="true"]:focus-visible,
-button.button.accent:disabled,
-button.button.accent:disabled:hover,
-button.button.accent:disabled:focus-visible {
+button.button.accent:disabled {
   background-color: var(--light-color);
-  border-color: var(--light-color);
   color: var(--dark-color);
 }
 
@@ -314,7 +355,7 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* sections — from original: content-blocks padding, container max-width 1168px */
 main > .section {
   margin: 40px 0;
 }
@@ -322,16 +363,27 @@ main > .section {
 main > .section > div {
   max-width: 1200px;
   margin: auto;
-  padding: 0 24px;
+  padding: 0 16px;
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
+@media (width >= 576px) {
+  main > .section > div {
+    padding: 0 24px;
+  }
+}
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;
+  }
+
+  a.button:any-link,
+  button.button {
+    width: auto;
   }
 }
 
@@ -356,6 +408,12 @@ main .section.dark a:any-link {
 
 main .section.yellow {
   background-color: var(--aa-yellow);
+  margin: 0;
+  padding: 40px 0;
+}
+
+main .section.grey {
+  background-color: var(--aa-bg-grey);
   margin: 0;
   padding: 40px 0;
 }

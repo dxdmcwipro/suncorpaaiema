@@ -1,3 +1,12 @@
+/* ================================================================
+   cards-homepage block
+   Three visual modes detected by JS:
+     (default)  — image cards (spotlight card, news cards)
+     .icon-grid — product icon tiles with circular badges
+     .spotlight — single centered card with hero image
+   ================================================================ */
+
+/* ---- Base grid ---- */
 .cards-homepage > ul {
   list-style: none;
   margin: 0;
@@ -7,42 +16,46 @@
   gap: var(--spacing-m);
 }
 
+/* ---- Base card ---- */
 .cards-homepage > ul > li {
   background-color: var(--background-color);
   border-radius: var(--card-border-radius);
   box-shadow: var(--card-shadow);
   overflow: hidden;
   transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards-homepage > ul > li:hover {
   box-shadow: rgb(0 0 0 / 25%) 0 5px 10px -2px, rgb(0 0 0 / 15%) 0 5px 8px 0, rgb(0 0 0 / 15%) 0 2px 12px 0;
 }
 
+/* ---- Base card parts ---- */
+.cards-homepage .cards-homepage-card-image {
+  line-height: 0;
+}
+
 .cards-homepage .cards-homepage-card-body {
-  padding: var(--spacing-s);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .cards-homepage .cards-homepage-card-body h3 {
   margin-top: 0;
-  font-size: var(--heading-font-size-xs);
+  margin-bottom: 12px;
+  font-size: var(--body-font-size-m);
   font-weight: 700;
+  color: var(--text-color);
 }
 
 .cards-homepage .cards-homepage-card-body p {
   font-size: var(--body-font-size-m);
   line-height: 1.5;
   color: var(--text-color);
-}
-
-.cards-homepage .cards-homepage-card-image {
-  line-height: 0;
-}
-
-.cards-homepage > ul > li img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  margin: 0 0 8px;
 }
 
 .cards-homepage .cards-homepage-card-body a {
@@ -54,4 +67,206 @@
 .cards-homepage .cards-homepage-card-body a:hover {
   color: var(--link-hover-color);
   text-decoration: underline;
+}
+
+/* ---- Base image ---- */
+.cards-homepage > ul > li img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* CTA button in news cards — push to bottom
+   :not() selectors have higher specificity than base a rules above */
+.cards-homepage:not(.icon-grid, .spotlight) .cards-homepage-card-body p:last-child {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.cards-homepage:not(.icon-grid, .spotlight) .cards-homepage-card-body p:last-child a {
+  display: inline-block;
+  background-color: var(--aa-blue);
+  color: var(--white);
+  font-weight: 600;
+  font-size: var(--body-font-size-m);
+  padding: 12px 24px;
+  border-radius: var(--button-border-radius);
+  text-decoration: none;
+  transition: var(--button-transition);
+}
+
+.cards-homepage:not(.icon-grid, .spotlight) .cards-homepage-card-body p:last-child a:hover {
+  background-color: var(--accent-hover-color);
+  color: var(--white);
+  text-decoration: none;
+}
+
+/* ================================================================
+   ICON GRID variant
+   ================================================================ */
+
+/* stylelint-disable no-descending-specificity -- icon-grid and spotlight
+   variants intentionally override base selectors using compound class
+   selectors. Ordering is by variant, not by specificity weight. */
+
+.cards-homepage.icon-grid > ul {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 8px;
+  justify-items: center;
+}
+
+.cards-homepage.icon-grid > ul > li {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: center;
+  overflow: visible;
+  max-width: 140px;
+}
+
+.cards-homepage.icon-grid > ul > li:hover {
+  box-shadow: none;
+}
+
+.cards-homepage.icon-grid > ul > li:empty {
+  display: none;
+}
+
+.cards-homepage.icon-grid > ul > li:not(:has(h3)) {
+  display: none;
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-body {
+  padding: 0;
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-body h3 {
+  font-size: var(--body-font-size-m);
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-body h3 a {
+  color: var(--aa-blue);
+  text-decoration: none;
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-body h3 a:hover {
+  text-decoration: underline;
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-body p {
+  font-size: var(--body-font-size-xs);
+  color: var(--aa-mid-grey);
+  margin: 0;
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-body p a {
+  display: none;
+}
+
+/* Icon grid — circular icon container */
+.cards-homepage.icon-grid .cards-homepage-card-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+  background-color: #eef0f3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 2px 0 rgb(0 0 0 / 4%), 0 2px 10px 0 rgb(34 43 56 / 12%);
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-icon p {
+  margin: 0;
+  display: flex;
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-icon .icon {
+  width: 36px;
+  height: 36px;
+  color: var(--aa-blue);
+}
+
+.cards-homepage.icon-grid .cards-homepage-card-icon .icon img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+@media (width >= 600px) {
+  .cards-homepage.icon-grid > ul {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 32px 16px;
+  }
+}
+
+/* ================================================================
+   SPOTLIGHT variant — single centered card
+   ================================================================ */
+.cards-homepage.spotlight > ul {
+  display: block;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.cards-homepage.spotlight > ul > li {
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.cards-homepage.spotlight > ul > li img {
+  aspect-ratio: 2 / 1;
+}
+
+.cards-homepage.spotlight .cards-homepage-card-body {
+  padding: 24px;
+}
+
+.cards-homepage.spotlight .cards-homepage-card-body h3 {
+  font-size: var(--body-font-size-m);
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 12px;
+}
+
+.cards-homepage.spotlight .cards-homepage-card-body p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.5;
+  color: var(--text-color);
+  margin: 0 0 16px;
+}
+
+.cards-homepage.spotlight .cards-homepage-card-body a {
+  color: var(--aa-blue);
+  font-weight: 700;
+  font-size: var(--body-font-size-m);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cards-homepage.spotlight .cards-homepage-card-body a::before {
+  content: '›';
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+.cards-homepage.spotlight .cards-homepage-card-body a:hover {
+  color: var(--link-hover-color);
+}
+
+/* stylelint-enable no-descending-specificity */
+
+@media (width >= 900px) {
+  .cards-homepage.spotlight > ul {
+    max-width: 720px;
+  }
+
+  .cards-homepage.spotlight .cards-homepage-card-body {
+    padding: 32px;
+  }
 }

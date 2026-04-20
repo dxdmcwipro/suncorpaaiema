@@ -1,77 +1,86 @@
-# AA Insurance Homepage — Migration Status & Remaining Work
+# Product Icon Grid Not Rendering on AEM Page Environment
 
-## Current State
+## Problem
 
-All CSS styles are applied correctly and the homepage migration is fully functional. The previous CSS debug investigation confirmed all stylesheets load and computed styles match the original site.# CSS Styles Debug — All Issues Resolved
+The product icon grid (12 insurance products with blue SVG icons in circular badges) renders correctly on `localhost:3000` but does **not** render on the AEM Page environment at `https://main--suncorpaaiema--dxdmcwipro.aem.page/`.
 
-## Status: ALL CSS STYLES ARE APPLIED CORRECTLY
+## Root Cause AnalysisThe grep is hitting the line-length limit on the single-line HTML. Let me check differently:The page IS rendering on `.aem.page` — the product icon grid section exists with the correct 12 products. The issue might be that the **icons don't display visually** (the SVG files may not be deployed or committed to git). Let me check if the code has been pushed:The icon files ARE deployed and loading. So the content and icons are both available on `.aem.page`. The issue is likely that the **block JS or CSS** isn't deploying correctly — specifically the `cards-homepage` block's `.icon-grid` variant detection or the icon styling.Everything is deployed correctly — icons, CSS, JS all load on `.aem.page`. The content includes the product grid. Let me now check what the actual rendered page looks like to understand the specific rendering issue:Now I can see the issue clearly. The page at the root URL (`/`) renders, but the **icon `<span>` elements are completely missing from the DOM**. The product grid shows headings (Car, Home, Contents, etc.) but NO icon spans. Looking at the list items:
 
-Live inspection confirms every stylesheet is loaded and all computed styles match the AA Insurance design system. No CSS issues remain.
+```
+listitem → heading "Car" → link "Car"
+```
 
-## Verified Stylesheets (8/8 Loaded)
+vs what should be:
 
-| Stylesheet | Status |
-|-----------|--------|
-| `styles/styles.css` | Loaded |
-| `blocks/hero-promo/hero-promo.css` | Loaded |
-| `blocks/cards-homepage/cards-homepage.css` | Loaded |
-| `blocks/columns-badges/columns-badges.css` | Loaded |
-| `blocks/header/header.css` | Loaded |
-| `blocks/footer/footer.css` | Loaded |
-| `styles/fonts.css` | Loaded |
-| `styles/lazy-styles.css` | Loaded |
+```
+listitem → paragraph (with icon span) → heading "Car" → link "Car"
+```
 
-## Verified Block Status (All Loaded)
+The icons are gone because EDS's content delivery pipeline strips `<span class="icon icon-car">` when it's inside a `<p>` tag — EDS expects icons to use the `:icon-name:` syntax in authored content, which gets converted to `<span class="icon icon-name">` during decoration. But in our case, we put the raw `<span>` HTML directly in the `.plain.html` file. **The AEM page delivery pipeline sanitizes this and removes empty spans.**
 
-| Block | Status |
-|-------|--------|
-| `hero-promo` | `loaded` |
-| `cards-homepage` | `loaded` |
-| `columns-badges` | `loaded` |
-| Header | Loaded (children rendered) |
-| Footer | Loaded (children rendered) |
+# Product Icon Grid — Icons Not Rendering on AEM Page
 
-## Verified Computed Styles Match Original
+## Problem
 
-| Property | Original Site | Migrated Site | Match |
-|----------|--------------|---------------|-------|
-| H1 font-family | `fs_lola_web, arial` | `fs_lola_web, fs-lola-fallback, arial, sans-serif` | Yes |
-| H1 font-size (desktop) | `48px` | `48px` | Yes |
-| H1 font-weight | `700` | `700` | Yes |
-| H1 color | `#0d59bf` | `rgb(255, 255, 255)` (white on deep blue hero bg) | Yes |
-| Body font-family | `arial, sans-serif` | `arial, sans-serif` | Yes |
-| Body font-size | `16px` | `16px` | Yes |
-| Body color | `#262626` | `rgb(38, 38, 38)` | Yes |
-| Button bg (primary) | `#0d59bf` | `rgb(13, 89, 191)` | Yes |
-| Button border-radius | `8px` | `8px` | Yes |
-| Button padding | `12px 24px` | `12px 24px` | Yes |
+The 12 product icon tiles (Car, Home, Contents, etc.) show as **text-only** on `https://main--suncorpaaiema--dxdmcwipro.aem.page/` — the circular icon badges with blue SVG icons are missing. They work locally on `localhost:3000`.
 
-## Previously Fixed Issues (All Resolved)
+## Root Cause
 
-| Issue | Resolution |
-|-------|-----------|
-| Nav/footer 404 errors | Copied files to site root (`/nav.plain.html`, `/footer.plain.html`) |
-| Images not loading | Rewrote Contentful CDN proxy URLs to direct `images.ctfassets.net` URLs |
-| Hero image as stacked element | Fixed CSS to use absolute positioning as background |
-| CTA links not styled as buttons | Added JS decoration in `hero-promo.js` |
-| Footer single-column on desktop | Added CSS Grid 4-column layout on `footer.css` |
-| Lint errors (descending specificity) | Reordered CSS rules in `hero-promo.css` and `footer.css` |
-| `fs_lola_web` font missing | Added `@font-face` in `fonts.css` loading from original site |
+**The AEM content delivery pipeline strips raw `<span class="icon icon-car">` elements** from `.plain.html` content files. EDS expects icons to be authored using the `:icon-name:` colon syntax in the document source, which AEM's decoration pipeline converts to icon spans.
+
+In our `content/index.plain.html`, the icons were inserted as raw HTML:
+```html
+<span class="icon icon-car"></span>
+```
+
+On `localhost:3000`, the local dev server serves this HTML as-is, so icons render. But on `.aem.page`, the AEM delivery pipeline **sanitizes the HTML and removes empty `<span>` elements** — so the icons disappear.
+
+## Evidence
+
+| Environment | Icon `<span>` present | Icons render |
+|-------------|----------------------|-------------|
+| `localhost:3000` | Yes (served raw) | Yes |
+| `.aem.page` | No (stripped by pipeline) | No |
+
+DOM on `.aem.page` shows:
+```
+listitem → heading "Car" (no icon div/span before it)
+```
+
+Expected:
+```
+listitem → div.cards-homepage-card-icon → p → span.icon.icon-car → img
+          → div.cards-homepage-card-body → heading "Car"
+```
+
+## Fix Required
+
+The content for the product icon grid needs to use **AEM-compatible icon references**. Two options:
+
+### Option A: Use `:icon-name:` Syntax in Document Authoring (Recommended)
+Author the content in DA/Google Docs with `:car:`, `:home:`, etc. — AEM's pipeline will convert these to proper `<span class="icon icon-car">` during delivery.
+
+### Option B: Use `<img>` Tags Instead of `<span>` Icons
+Replace the icon spans with direct `<img src="/icons/car.svg">` tags in the HTML content — images are preserved by the pipeline.
+
+```html
+<!-- Instead of: -->
+<span class="icon icon-car"></span>
+
+<!-- Use: -->
+<img src="/icons/car.svg" alt="Car" width="36" height="36">
+```
 
 ## Checklist
 
-- [x] Verify `styles/styles.css` is loaded and applied
-- [x] Verify all block CSS files load (hero-promo, cards-homepage, columns-badges)
-- [x] Verify all 3 content blocks have `data-block-status="loaded"`
-- [x] Verify header block loads and renders with navigation
-- [x] Verify footer block loads and renders with 4-column yellow layout
-- [x] Verify design tokens (colors, fonts, spacing) match original site values
-- [x] Verify button styling (primary/secondary) renders correctly
-- [x] Verify `fs_lola_web` font loads for H1 headings
-- [x] Verify all 8 Contentful CDN images load successfully
-- [x] Verify no remaining CSS-related console errors
-- [x] All lint errors resolved (no-descending-specificity, no-duplicate-properties)
+- [x] Identify root cause — AEM pipeline strips empty `<span>` elements
+- [x] Verify icons load individually on `.aem.page` (`/icons/car.svg` returns valid SVG)
+- [x] Verify block JS deployed correctly (icon detection logic present)
+- [x] Verify block CSS deployed correctly (icon-grid variant styles present)
+- [ ] **Fix content** — Replace `<span class="icon icon-name">` with `<img src="/icons/name.svg">` tags in `content/index.plain.html`
+- [ ] **Update block JS** — Adjust `cards-homepage.js` icon detection to handle `<img>` tags from `/icons/` path
+- [ ] **Update block CSS** — Ensure `.cards-homepage-card-icon img` styling works for direct `<img>` elements
+- [ ] **Verify on `.aem.page`** — Confirm icons render after fix is pushed
+- [ ] **Update import parser** — Fix `cards-homepage.js` parser to generate `<img>` tags instead of icon spans for future imports
 
-## Conclusion
-
-**No CSS issues remain.** All styles, fonts, blocks, header, and footer are fully functional. The migrated homepage at the preview renders with the complete AA Insurance design system applied.
+> **Execution of these fixes requires exiting plan mode.**

@@ -1,5 +1,9 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
+function isIconImage(img) {
+  return img && img.src && img.src.includes('/icons/');
+}
+
 export default function decorate(block) {
   const ul = document.createElement('ul');
   let hasRealImages = false;
@@ -13,10 +17,10 @@ export default function decorate(block) {
       const img = div.querySelector('img');
       const icon = div.querySelector('.icon');
 
-      if (icon) {
+      if (icon || isIconImage(img)) {
         div.className = 'cards-homepage-card-icon';
         hasIcons = true;
-      } else if ((pic && div.children.length === 1) || (img && !icon)) {
+      } else if ((pic && div.children.length === 1) || img) {
         div.className = 'cards-homepage-card-image';
         hasRealImages = true;
       } else {
@@ -27,16 +31,18 @@ export default function decorate(block) {
   });
 
   ul.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
-    img.closest('picture').replaceWith(optimizedPic);
+    if (!isIconImage(img)) {
+      const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+      img.closest('picture').replaceWith(optimizedPic);
+    }
   });
 
-  // Icon grid: has icon spans, no real images
+  // Icon grid: has icon images/spans, no real content images
   if (hasIcons && !hasRealImages) {
     block.classList.add('icon-grid');
   }
 
-  // Spotlight: single card with image
+  // Spotlight: single card with real image
   const items = ul.querySelectorAll('li');
   if (items.length === 1 && hasRealImages) {
     block.classList.add('spotlight');

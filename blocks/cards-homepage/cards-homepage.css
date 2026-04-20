@@ -189,10 +189,12 @@
   color: var(--aa-blue);
 }
 
-.cards-homepage.icon-grid .cards-homepage-card-icon .icon img {
-  width: 100%;
-  height: 100%;
+.cards-homepage.icon-grid .cards-homepage-card-icon .icon img,
+.cards-homepage.icon-grid .cards-homepage-card-icon img {
+  width: 36px;
+  height: 36px;
   aspect-ratio: auto;
+  object-fit: contain;
 }
 
 @media (width >= 600px) {

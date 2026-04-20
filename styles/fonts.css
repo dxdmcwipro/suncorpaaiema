@@ -1,6 +1,16 @@
 /*
- * AA Insurance uses Arial (system font) as its primary typeface.
- * No external font loading required.
- * The original site uses fs_lola_web for H1 headings — this is a proprietary font
- * not available publicly, so we fall back to Arial for all headings.
+ * AA Insurance fonts
+ * H1 headings use fs_lola_web (proprietary, self-hosted on aainsurance.co.nz)
+ * All other text uses Arial (system font)
  */
+
+@font-face {
+  font-family: "fs_lola_web";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  line-gap-override: 0%;
+  src:
+    local('fs_lola_web'),
+    url('https://www.aainsurance.co.nz/fonts/fs_lola_web-bold.woff2') format('woff2');
+}

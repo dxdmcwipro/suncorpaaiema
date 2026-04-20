@@ -1,1 +1,26 @@
 /* add global styles that can be loaded post LCP here */
+
+/* Smooth scroll behavior — from original html { scroll-behavior: smooth } */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus-visible outlines for accessibility */
+:focus-visible {
+  outline: 2px solid var(--aa-blue);
+  outline-offset: 2px;
+}
+
+/* Reduced motion: disable smooth scroll + transitions */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

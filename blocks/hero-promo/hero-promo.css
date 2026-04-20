@@ -5,32 +5,82 @@
 
 .hero-promo {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  padding: 0;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   overflow: hidden;
 }
 
+/* H1 — blue heading at top */
 .hero-promo h1 {
   color: var(--aa-blue);
   font-size: var(--heading-font-size-xxl);
   line-height: 1.05;
   font-weight: 700;
-  margin-top: 0;
+  margin: 0 0 16px;
+}
+
+/* White card containing buttons + promo text */
+.hero-promo-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: auto;
+  box-shadow: var(--card-shadow);
+}
+
+/* Card text */
+.hero-promo-card p {
+  margin: 0 0 4px;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+}
+
+.hero-promo-card sub {
+  font-size: var(--body-font-size-xs);
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.hero-promo-card a:not(.button) {
+  color: var(--link-color);
+  font-size: var(--body-font-size-xs);
+}
+
+/* Button containers inside card */
+.hero-promo-card > div {
+  margin: 0 0 12px;
+}
+
+/* Primary button = full width */
+.hero-promo-card a.button.primary {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Secondary buttons = side by side */
+.hero-promo-card > div:nth-child(2),
+.hero-promo-card > div:nth-child(3) {
+  display: inline-block;
+  width: calc(50% - 6px);
+  vertical-align: top;
   margin-bottom: 16px;
-  text-shadow: 0 1px 2px rgb(255 255 255 / 50%);
 }
 
-.hero-promo p {
-  margin: 4px 0;
+.hero-promo-card > div:nth-child(3) {
+  margin-left: 12px;
 }
 
-/* First row = background image row */
+.hero-promo-card a.button.secondary {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Background image — fills entire hero */
 .hero-promo > div:first-child {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
 }
 
@@ -46,52 +96,42 @@
   display: block;
 }
 
-/* Second row = content overlay */
+/* Content overlay */
 .hero-promo > div:nth-child(2) {
   position: relative;
   z-index: 1;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-}
-
-.hero-promo .button-wrapper {
-  margin: 4px 0;
-  display: inline-block;
-}
-
-.hero-promo .button-wrapper + .button-wrapper {
-  margin-left: 8px;
-}
-
-.hero-promo a.button {
-  border-radius: var(--button-border-radius);
-  padding: var(--button-padding);
-  font-weight: 600;
-  min-height: var(--button-min-height);
-  transition: var(--button-transition);
+  padding: 24px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
 }
 
 .hero-promo.no-image {
   background-color: var(--light-color);
 }
 
-.hero-promo.no-image h1 {
-  text-shadow: none;
-}
-
+/* Desktop layout */
 @media (width >= 900px) {
   .hero-promo {
-    padding: 60px 32px;
-    min-height: 400px;
-  }
-
-  .hero-promo h1 {
-    font-size: 48px;
-    max-width: 600px;
+    min-height: 500px;
   }
 
   .hero-promo > div:nth-child(2) {
-    padding: 0;
+    padding: 32px;
+    min-height: 500px;
+  }
+
+  .hero-promo h1 {
+    font-size: 3rem;
+    line-height: 1.05;
+    max-width: 480px;
+  }
+
+  .hero-promo-card {
+    max-width: 480px;
+    padding: 32px;
   }
 }

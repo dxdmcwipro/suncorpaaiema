@@ -70,7 +70,7 @@ function focusNavSection() {
  */
 function toggleAllNavSections(sections, expanded = false) {
   if (!sections) return;
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
+  sections.querySelectorAll('.nav-sections > div > div > ul > li').forEach((section) => {
     section.setAttribute('aria-expanded', expanded);
   });
 }
@@ -171,8 +171,14 @@ export default async function decorate(block) {
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
+    // Remove plain (non-dropdown) items from top-level nav — only keep dropdown menus
+    navSections.querySelectorAll(':scope > div > div > ul > li').forEach((navSection) => {
+      if (navSection.querySelector('ul')) {
+        navSection.classList.add('nav-drop');
+      } else {
+        navSection.remove();
+        return;
+      }
       navSection.addEventListener('click', (e) => {
         // On mobile, only toggle when the click is on the parent row itself,
         // not on a child link (so tapping a sub-item still navigates).

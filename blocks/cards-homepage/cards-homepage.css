@@ -23,6 +23,8 @@
   box-shadow: var(--card-shadow);
   overflow: hidden;
   transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards-homepage > ul > li:hover {
@@ -35,19 +37,25 @@
 }
 
 .cards-homepage .cards-homepage-card-body {
-  padding: var(--spacing-s);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .cards-homepage .cards-homepage-card-body h3 {
   margin-top: 0;
-  font-size: var(--heading-font-size-xs);
+  margin-bottom: 12px;
+  font-size: var(--body-font-size-m);
   font-weight: 700;
+  color: var(--text-color);
 }
 
 .cards-homepage .cards-homepage-card-body p {
   font-size: var(--body-font-size-m);
   line-height: 1.5;
   color: var(--text-color);
+  margin: 0 0 8px;
 }
 
 .cards-homepage .cards-homepage-card-body a {
@@ -68,9 +76,39 @@
   object-fit: cover;
 }
 
+/* CTA button in news cards — push to bottom
+   :not() selectors have higher specificity than base a rules above */
+.cards-homepage:not(.icon-grid, .spotlight) .cards-homepage-card-body p:last-child {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.cards-homepage:not(.icon-grid, .spotlight) .cards-homepage-card-body p:last-child a {
+  display: inline-block;
+  background-color: var(--aa-blue);
+  color: var(--white);
+  font-weight: 600;
+  font-size: var(--body-font-size-m);
+  padding: 12px 24px;
+  border-radius: var(--button-border-radius);
+  text-decoration: none;
+  transition: var(--button-transition);
+}
+
+.cards-homepage:not(.icon-grid, .spotlight) .cards-homepage-card-body p:last-child a:hover {
+  background-color: var(--accent-hover-color);
+  color: var(--white);
+  text-decoration: none;
+}
+
 /* ================================================================
    ICON GRID variant
    ================================================================ */
+
+/* stylelint-disable no-descending-specificity -- icon-grid and spotlight
+   variants intentionally override base selectors using compound class
+   selectors. Ordering is by variant, not by specificity weight. */
+
 .cards-homepage.icon-grid > ul {
   grid-template-columns: repeat(3, 1fr);
   gap: 16px 8px;
@@ -90,8 +128,6 @@
   box-shadow: none;
 }
 
-/* stylelint-disable no-descending-specificity -- :empty and :not() pseudo-classes
-   intentionally override the base li above; order is semantic, not specificity. */
 .cards-homepage.icon-grid > ul > li:empty {
   display: none;
 }
@@ -100,9 +136,6 @@
   display: none;
 }
 
-/* stylelint-enable no-descending-specificity */
-
-/* Icon grid — card body */
 .cards-homepage.icon-grid .cards-homepage-card-body {
   padding: 0;
 }
@@ -128,7 +161,6 @@
   margin: 0;
 }
 
-/* stylelint-disable-next-line no-descending-specificity -- p a hides links, distinct from h3 a above */
 .cards-homepage.icon-grid .cards-homepage-card-body p a {
   display: none;
 }
@@ -173,9 +205,6 @@
 /* ================================================================
    SPOTLIGHT variant — single centered card
    ================================================================ */
-
-/* stylelint-disable no-descending-specificity -- spotlight overrides base
-   with higher-specificity compound selectors; ordering is by variant. */
 .cards-homepage.spotlight > ul {
   display: block;
   max-width: 640px;

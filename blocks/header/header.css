@@ -312,12 +312,16 @@ header nav .nav-tools .nav-tool-icon svg {
   }
 
   /* Sections fill the middle, left-aligned close to brand */
-  header nav .nav-sections {
+  header nav .nav-sections,
+  header nav[aria-expanded='true'] .nav-sections {
     display: flex;
     visibility: visible;
     flex: 1 1 auto;
     padding: 0;
     background: transparent;
+    align-self: center;
+    height: auto;
+    overflow: visible;
   }
 
   header nav .nav-sections > div,

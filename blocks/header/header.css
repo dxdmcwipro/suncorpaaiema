@@ -2,21 +2,28 @@
 
 /* ==========================================================================
    Header / primary navigation
-   Design reference: https://www.aainsurance.co.nz/
-   Target layout (desktop):
-     [AA badge + Insurance]   Our Insurance ▾   Manage Policy ▾   Claim ▾        Help & Contact  📞  🔍  👤
+   Adapted from https://www.aainsurance.co.nz header structure.
+   Desktop: [Logo]  Our Insurance v  Manage Policy v  Claim v  ...  Help & Contact  P  S  A
    ========================================================================== */
 
 /* ---- Local tokens ---- */
 header {
   --header-height-mobile: 64px;
-  --header-height-desktop: 80px;
-  --header-height-scrolled: 64px;
-  --header-bg: var(--aa-yellow);
-  --header-fg: var(--aa-dark-grey);
-  --header-accent: var(--aa-blue);
+  --header-height-desktop: 96px;
+  --header-height-scrolled: 80px;
+  --header-bg: var(--aa-yellow, #ffd400);
+  --header-fg: var(--aa-dark-grey, #262626);
+  --header-accent: var(--aa-blue, #0d59bf);
+  --header-accent-hover: #09438f;
   --header-shadow: 0 2px 8px rgb(0 0 0 / 8%);
   --header-transition: 0.25s ease;
+  --mega-sidebar-bg: #f2f1ed;
+  --mega-sidebar-active-border: var(--header-bg);
+  --mega-content-bg: #fff;
+  --mega-link-border: #f2f1ed;
+  --mega-panel-shadow: -2px 3px 5px 0 rgb(0 0 0 / 20%);
+  --mega-panel-radius: 8px;
+  --mega-cat-height: 57px;
 }
 
 /* ---- Sticky wrapper ---- */
@@ -33,7 +40,6 @@ header .nav-wrapper.is-scrolled {
   box-shadow: var(--header-shadow);
 }
 
-/* Bottom shadow gradient — matches .header-shadow::after from original */
 header .nav-wrapper::after {
   content: '';
   position: absolute;
@@ -44,7 +50,7 @@ header .nav-wrapper::after {
   z-index: -1;
 }
 
-/* ---- Nav grid (mobile-first) ---- */
+/* ---- Nav layout (mobile-first) ---- */
 header nav {
   box-sizing: border-box;
   display: grid;
@@ -54,22 +60,17 @@ header nav {
     / auto 1fr auto;
   align-items: center;
   gap: 0 12px;
-  max-width: 1440px;
+  max-width: 1168px;
   margin: 0 auto;
   padding: 0 16px;
   height: var(--header-height-mobile);
   color: var(--header-fg);
-  font-family: var(--body-font-family);
-  font-size: var(--body-font-size-m);
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
   transition: height var(--header-transition);
 }
 
-/* Mobile drawer expanded */
 header nav[aria-expanded='true'] {
-  grid-template:
-    'hamburger brand tools' var(--header-height-mobile)
-    'sections  sections sections' 1fr
-    / auto 1fr auto;
   height: 100dvh;
   overflow-y: auto;
   background-color: var(--header-bg);
@@ -86,9 +87,7 @@ header nav a:any-link {
   transition: color var(--header-transition);
 }
 
-header nav a:hover {
-  color: var(--header-accent);
-}
+header nav a:hover { color: var(--header-accent); }
 
 /* ==========================================================================
    Hamburger (mobile only)
@@ -131,8 +130,13 @@ header nav .nav-hamburger-icon::after {
   left: 0;
 }
 
-header nav[aria-expanded='false'] .nav-hamburger-icon::before { top: -7px; }
-header nav[aria-expanded='false'] .nav-hamburger-icon::after  { top: 7px; }
+header nav[aria-expanded='false'] .nav-hamburger-icon::before {
+  top: -7px;
+}
+
+header nav[aria-expanded='false'] .nav-hamburger-icon::after {
+  top: 7px;
+}
 
 header nav[aria-expanded='true'] .nav-hamburger-icon {
   background: transparent;
@@ -149,13 +153,12 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 }
 
 /* ==========================================================================
-   Brand / logo — circular "AA" badge + "Insurance" wordmark
+   Brand / logo
    ========================================================================== */
 header .nav-brand {
   grid-area: brand;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
 }
 
 header .nav-brand a {
@@ -165,8 +168,6 @@ header .nav-brand a {
   line-height: 1;
 }
 
-/* Official AA Insurance SVG — badge + "Insurance" wordmark are both in one asset.
-   Height drives scale; width is intrinsic to the SVG's 184:64 aspect ratio. */
 header .nav-brand-logo {
   display: block;
   height: 40px;
@@ -174,20 +175,35 @@ header .nav-brand-logo {
 }
 
 /* ==========================================================================
-   Sections (Our Insurance / Manage Policy / Claim)
+   Chevron icon used in nav titles
+   ========================================================================== */
+header .nav-chevron {
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+header .nav-drop[aria-expanded='true'] > p .nav-chevron {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   Sections – mobile (collapsed drawer)
    ========================================================================== */
 header nav .nav-sections {
   grid-area: sections;
   display: none;
   visibility: hidden;
-  background-color: var(--header-bg);
+  background-color: #fff;
 }
 
 header nav[aria-expanded='true'] .nav-sections {
   display: block;
   visibility: visible;
   align-self: start;
-  padding: 8px 0;
+  padding: 0;
 }
 
 header nav .nav-sections ul {
@@ -196,49 +212,130 @@ header nav .nav-sections ul {
   padding: 0;
 }
 
-/* Mobile: stacked tap targets with "+" chevron on dropdown parents */
-header nav .nav-sections ul > li {
+/* Top-level items */
+header nav .nav-sections > div > div > ul > li {
   position: relative;
-  padding: 14px 16px;
-  font-weight: 600;
-  border-bottom: 1px solid rgb(38 38 38 / 10%);
+  font-weight: 700;
 }
 
-header nav .nav-sections .nav-drop::after {
-  content: '+';
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 1;
-  transition: transform var(--header-transition);
+header nav .nav-sections .nav-drop > p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--mega-link-border);
+  color: var(--header-accent);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-  content: '−';
+header nav .nav-sections .nav-drop[aria-expanded='true'] > p {
+  color: var(--header-fg);
+  border-left: 4px solid var(--mega-sidebar-active-border);
 }
 
-/* Collapse nested menus by default, reveal on parent expand */
-header nav .nav-sections ul ul {
+/* Simple dropdown (2-level) — mobile */
+header nav .nav-sections .nav-drop > ul {
   display: none;
-  margin-top: 8px;
-  padding-left: 12px;
+  padding: 0;
 }
 
-header nav .nav-sections li[aria-expanded='true'] > ul {
+header nav .nav-sections .nav-drop[aria-expanded='true'] > ul {
   display: block;
 }
 
-header nav .nav-sections ul ul > li {
-  padding: 8px 0;
-  border: 0;
+header nav .nav-sections .nav-drop > ul > li {
   font-weight: 400;
 }
 
+header nav .nav-sections .nav-drop > ul > li > a {
+  display: block;
+  padding: 12px 16px 12px 32px;
+  color: var(--header-accent);
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--mega-link-border);
+}
+
+header nav .nav-sections .nav-drop > ul > li > a:hover {
+  background-color: var(--mega-sidebar-bg);
+  color: var(--header-accent-hover);
+}
+
 /* ==========================================================================
-   Tools — "Help & Contact" label + phone/search/account icons
+   Mega-menu panel – mobile
+   ========================================================================== */
+header .nav-mega .nav-mega-panel {
+  display: none;
+}
+
+header .nav-mega[aria-expanded='true'] .nav-mega-panel {
+  display: block;
+}
+
+/* Sidebar categories (mobile: stacked, act like accordion) */
+header .nav-mega-cat {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px 16px 16px 32px;
+  border: none;
+  border-bottom: 1px solid var(--mega-link-border);
+  background: none;
+  color: var(--header-accent);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+
+header .nav-mega-cat:hover {
+  color: var(--header-accent-hover);
+}
+
+header .nav-mega-cat.is-active {
+  color: var(--header-fg);
+  border-left: 4px solid var(--mega-sidebar-active-border);
+  background-color: var(--mega-content-bg);
+}
+
+/* Panes (mobile: collapse / expand below their cat button) */
+header .nav-mega-pane {
+  display: none;
+}
+
+header .nav-mega-pane.is-active {
+  display: block;
+}
+
+header .nav-mega-link {
+  display: block;
+  padding: 12px 16px 12px 48px;
+  color: var(--header-accent);
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--mega-link-border);
+  text-decoration: none;
+}
+
+header .nav-mega-link:hover {
+  background-color: var(--mega-sidebar-bg);
+  color: var(--header-accent-hover);
+}
+
+/* Mobile: interleave sidebar buttons with their panes */
+header .nav-mega-content {
+  display: contents;
+}
+
+header .nav-mega-sidebar {
+  display: contents;
+}
+
+/* ==========================================================================
+   Tools
    ========================================================================== */
 header nav .nav-tools {
   grid-area: tools;
@@ -252,7 +349,7 @@ header nav .nav-tools ul {
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0;
 }
 
 header nav .nav-tools a {
@@ -273,7 +370,6 @@ header nav .nav-tools a:hover {
   color: var(--header-fg);
 }
 
-/* Icon-only tool links (phone, search, account) */
 header nav .nav-tools .nav-tool-icon {
   width: 48px;
   height: 48px;
@@ -284,25 +380,23 @@ header nav .nav-tools .nav-tool-icon {
 header nav .nav-tools .nav-tool-icon svg {
   width: 24px;
   height: 24px;
-  fill: currentcolor;
 }
 
-/* On mobile, keep only the account icon visible to save space;
-   hamburger exposes the rest of the tools. */
-@media (width < 900px) {
+/* Mobile: only account visible; rest hidden */
+@media (width < 992px) {
   header nav .nav-tools li:not(:last-child) { display: none; }
 }
 
 /* ==========================================================================
-   Desktop (≥ 900px)
+   Desktop (>= 992px)  — matches original breakpoint
    ========================================================================== */
-@media (width >= 900px) {
+@media (width >= 992px) {
   header nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 16px;
     height: var(--header-height-desktop);
-    padding: 0 40px;
+    padding: 0 24px;
   }
 
   header .nav-wrapper.is-scrolled nav {
@@ -316,14 +410,17 @@ header nav .nav-tools .nav-tool-icon svg {
 
   header nav .nav-hamburger { display: none; }
 
-  /* Brand on the left, fixed size */
+  /* Brand */
   header .nav-brand { flex: 0 0 auto; }
 
-  header .nav-brand-logo {
-    height: 48px;
+  header .nav-brand-logo { height: 48px; }
+
+  .nav-wrapper.is-scrolled .nav-brand-logo {
+    height: 40px;
+    transition: height var(--header-transition);
   }
 
-  /* Sections fill the middle, left-aligned close to brand */
+  /* Sections: horizontal row */
   header nav .nav-sections,
   header nav[aria-expanded='true'] .nav-sections {
     display: flex;
@@ -338,111 +435,202 @@ header nav .nav-tools .nav-tool-icon svg {
 
   header nav .nav-sections > div,
   header nav .nav-sections > div > div,
-  header nav .nav-sections ul {
+  header nav .nav-sections > div > div > ul {
     display: flex;
     align-items: center;
     gap: 20px;
     height: 100%;
   }
 
-  header nav .nav-sections ul > li {
-    position: relative;
-    padding: 0;
-    border: 0;
+  /* Top-level nav item */
+  header nav .nav-sections .nav-drop > p {
+    padding: 4px 0 0;
+    border: none;
     font-family: Arial, sans-serif;
     font-size: 18px;
     font-weight: 700;
     white-space: nowrap;
-    cursor: pointer;
+    color: var(--header-fg);
   }
 
-  /* Chevron (▾) after dropdown parents */
-  header nav .nav-sections .nav-drop {
-    padding-right: 20px;
+  header nav .nav-sections .nav-drop > p:hover {
+    border-bottom: 2px solid var(--header-fg);
+    margin-bottom: -2px;
   }
 
-  header nav .nav-sections .nav-drop::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 8px;
-    height: 8px;
-    border: solid currentcolor;
-    border-width: 0 2px 2px 0;
-    transform: translateY(-75%) rotate(45deg);
-    font-size: 0;
-    line-height: 0;
-    transition: transform var(--header-transition);
+  header nav .nav-sections .nav-drop[aria-expanded='true'] > p {
+    border-left: none;
+    border-bottom: 2px solid var(--header-fg);
+    margin-bottom: -2px;
   }
 
-  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    transform: translateY(-25%) rotate(-135deg);
-  }
-
-  /* Floating dropdown panel (white card, shadow) */
-  header nav .nav-sections li > ul,
-  header nav .nav-sections ul ul {
+  /* ---- Simple dropdown (2-level) ---- */
+  header nav .nav-sections .nav-drop:not(.nav-mega) > ul {
     display: none;
     position: absolute;
-    top: calc(100% + 12px);
-    left: -16px;
-    min-width: 280px;
-    max-width: 600px;
-    padding: 16px 0;
-    margin: 0;
-    background-color: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgb(0 0 0 / 15%);
-    font-weight: 400;
-    flex-direction: column;
-    gap: 0;
-    list-style: none;
-  }
-
-  /* Mega-menu: wide multi-column for large dropdown lists */
-  header nav .nav-sections li:first-child > ul {
-    min-width: 480px;
-    columns: 2;
-    column-gap: 0;
-  }
-
-  header nav .nav-sections li[aria-expanded='true'] > ul {
-    display: block;
-  }
-
-  header nav .nav-sections li > ul > li {
+    top: calc(100% + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 265px;
     padding: 0;
-    font-weight: 400;
-    break-inside: avoid;
+    margin: 0;
+    background-color: var(--mega-content-bg);
+    border-radius: var(--mega-panel-radius);
+    box-shadow: var(--mega-panel-shadow);
+    flex-direction: column;
+    z-index: 10;
+    overflow: hidden;
   }
 
-  header nav .nav-sections li > ul > li > a {
-    display: block;
-    padding: 10px 24px;
-    font-size: var(--body-font-size-s);
-    font-weight: 600;
+  header nav .nav-sections .nav-drop:not(.nav-mega)[aria-expanded='true'] > ul {
+    display: flex;
+  }
+
+  header nav .nav-sections .nav-drop:not(.nav-mega) > ul > li > a {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--mega-link-border);
+    font-size: 14px;
+    font-weight: 700;
     color: var(--header-accent);
-    white-space: nowrap;
   }
 
-  header nav .nav-sections li > ul > li > a:hover {
-    background-color: var(--light-color);
-    color: var(--accent-hover-color);
+  header nav .nav-sections .nav-drop:not(.nav-mega) > ul > li:last-child > a {
+    border-bottom: none;
   }
 
-  /* Tools on the far right */
+  header nav .nav-sections .nav-drop:not(.nav-mega) > ul > li > a:hover {
+    background-color: var(--mega-sidebar-bg);
+    color: var(--header-accent-hover);
+  }
+
+  /* ---- Mega-menu panel (3-level) ---- */
+  header .nav-mega .nav-mega-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 795px;
+    height: 365px;
+    border-radius: var(--mega-panel-radius);
+    box-shadow: var(--mega-panel-shadow);
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  header .nav-mega[aria-expanded='true'] .nav-mega-panel {
+    display: flex;
+  }
+
+  /* Sidebar */
+  header .nav-mega-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 265px;
+    min-width: 265px;
+    background-color: var(--mega-sidebar-bg);
+    overflow-y: auto;
+  }
+
+  header .nav-mega-cat {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--mega-cat-height);
+    padding: 8px 16px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    border-left: 4px solid transparent;
+    background-color: var(--mega-sidebar-bg);
+    color: var(--header-accent);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  header .nav-mega-cat:hover {
+    color: var(--header-accent-hover);
+  }
+
+  header .nav-mega-cat.is-active {
+    background-color: var(--mega-content-bg);
+    border-left-color: var(--mega-sidebar-active-border);
+    color: var(--header-fg);
+  }
+
+  /* Content area */
+  header .nav-mega-content {
+    display: flex;
+    flex: 1;
+    background-color: var(--mega-content-bg);
+    position: relative;
+  }
+
+  header .nav-mega-pane {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+  }
+
+  header .nav-mega-pane.is-active {
+    display: flex;
+  }
+
+  header .nav-mega-link {
+    display: flex;
+    align-items: center;
+    height: var(--mega-cat-height);
+    padding: 16px;
+    border-bottom: 1px solid var(--mega-link-border);
+    border-left: 1px solid var(--mega-link-border);
+    color: var(--header-accent);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  header .nav-mega-link:hover {
+    background-color: var(--mega-sidebar-bg);
+    color: var(--header-accent-hover);
+  }
+
+  /* Tools on far right */
   header nav .nav-tools {
     flex: 0 0 auto;
     margin-left: auto;
   }
 
-  header nav .nav-tools ul {
-    gap: 4px;
+  header nav .nav-tools ul { gap: 4px; }
+  header nav .nav-tools a { font-size: 1rem; }
+}
+
+/* Larger screens: wider mega-menu */
+@media (width >= 1200px) {
+  header .nav-mega .nav-mega-panel {
+    width: 960px;
   }
 
-  header nav .nav-tools a {
-    font-size: var(--body-font-size-m);
+  header .nav-mega-sidebar {
+    width: 320px;
+    min-width: 320px;
+  }
+
+  header .nav-mega-cat {
+    height: 73px;
+    font-size: 16px;
+  }
+
+  header .nav-mega-link {
+    height: 73px;
+    font-size: 16px;
+  }
+
+  header nav {
+    padding: 0 calc((100% - 1168px) / 2);
+    max-width: none;
   }
 }
 

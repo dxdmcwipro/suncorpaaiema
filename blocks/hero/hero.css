@@ -28,6 +28,7 @@
   overflow: hidden;
   position: relative;
   z-index: 0;
+  background-color: var(--light-color, #f2f1ed);
 }
 
 .hero .hero-image picture {

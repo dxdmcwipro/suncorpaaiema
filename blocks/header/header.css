@@ -33,6 +33,17 @@ header .nav-wrapper.is-scrolled {
   box-shadow: var(--header-shadow);
 }
 
+/* Bottom shadow gradient — matches .header-shadow::after from original */
+header .nav-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(180deg, rgb(0 0 0 / 20%), transparent);
+  z-index: -1;
+}
+
 /* ---- Nav grid (mobile-first) ---- */
 header nav {
   box-sizing: border-box;
@@ -249,9 +260,10 @@ header nav .nav-tools a {
   align-items: center;
   justify-content: center;
   color: var(--header-fg);
-  font-weight: 600;
-  font-size: var(--body-font-size-s);
-  padding: 8px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 8px;
   border-radius: 6px;
   transition: background-color var(--header-transition);
 }
@@ -263,15 +275,15 @@ header nav .nav-tools a:hover {
 
 /* Icon-only tool links (phone, search, account) */
 header nav .nav-tools .nav-tool-icon {
-  width: 40px;
-  height: 40px;
-  padding: 0;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
   border-radius: 50%;
 }
 
 header nav .nav-tools .nav-tool-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   fill: currentcolor;
 }
 
@@ -329,7 +341,7 @@ header nav .nav-tools .nav-tool-icon svg {
   header nav .nav-sections ul {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 20px;
     height: 100%;
   }
 
@@ -337,8 +349,9 @@ header nav .nav-tools .nav-tool-icon svg {
     position: relative;
     padding: 0;
     border: 0;
-    font-size: var(--body-font-size-m);
-    font-weight: 600;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
     white-space: nowrap;
     cursor: pointer;
   }

@@ -1,6 +1,11 @@
+/* Columns block — AA Insurance style
+   Reference: /prepare page "Stay safe / Stay away / Stay informed" cards
+   Original uses .content-block__yellow__ffd700 with 1px yellow border + 16px padding */
+
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .columns img {
@@ -9,10 +14,35 @@
 
 .columns > div > div {
   order: 1;
+  border: 1px solid var(--aa-yellow, #ffd400);
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.columns > div > div > h3 {
+  color: var(--text-color, #262626);
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+  margin: 0 0 8px;
+}
+
+.columns > div > div > p {
+  color: var(--text-color, #262626);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin: 0 0 8px;
+}
+
+.columns > div > div > p:last-child {
+  margin-bottom: 0;
 }
 
 .columns > div > .columns-img-col {
   order: 0;
+  border: none;
+  padding: 0;
 }
 
 .columns > div > .columns-img-col img {
@@ -21,8 +51,8 @@
 
 @media (width >= 900px) {
   .columns > div {
-    align-items: center;
-    flex-direction: unset;
+    align-items: stretch;
+    flex-direction: row;
     gap: 24px;
   }
 

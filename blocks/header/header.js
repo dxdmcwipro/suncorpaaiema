@@ -202,7 +202,11 @@ export default async function decorate(block) {
   /* --- Sections --- */
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
-    navSections.querySelectorAll(':scope > div > div > ul > li').forEach((navSection) => {
+    // Find top-level nav items — handle both local (div > div > ul > li)
+    // and remote (div.default-content-wrapper > ul > li) DOM structures
+    const topUl = navSections.querySelector('ul');
+    if (!topUl) return;
+    [...topUl.children].forEach((navSection) => {
       if (!navSection.querySelector('ul')) {
         navSection.remove();
         return;

@@ -213,7 +213,7 @@ header nav .nav-sections ul {
 }
 
 /* Top-level items */
-header nav .nav-sections > div > div > ul > li {
+header nav .nav-sections ul > li.nav-drop {
   position: relative;
   font-weight: 700;
 }
@@ -434,8 +434,7 @@ header nav .nav-tools .nav-tool-icon svg {
   }
 
   header nav .nav-sections > div,
-  header nav .nav-sections > div > div,
-  header nav .nav-sections > div > div > ul {
+  header nav .nav-sections ul {
     display: flex;
     align-items: center;
     gap: 20px;

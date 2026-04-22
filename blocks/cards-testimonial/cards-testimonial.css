@@ -1,0 +1,76 @@
+/* Import component-specific tokens */
+@import url('cards-testimonial-tokens.css');
+
+/* cards-testimonial block styles */
+
+.cards-testimonial > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--cards-testimonial-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.cards-testimonial > ul::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-testimonial > ul > li {
+  flex: 0 0 var(--cards-testimonial-item-min-width);
+  max-width: 400px;
+  background-color: var(--cards-testimonial-item-background);
+  border-width: var(--cards-testimonial-item-border-width);
+  border-style: var(--cards-testimonial-item-border-style);
+  border-color: var(--cards-testimonial-item-border-color);
+  border-radius: var(--cards-testimonial-item-border-radius);
+  box-shadow: var(--cards-testimonial-item-shadow);
+  scroll-snap-align: start;
+  transition: box-shadow var(--cards-testimonial-transition-duration) var(--cards-testimonial-transition-timing),
+              transform var(--cards-testimonial-transition-duration) var(--cards-testimonial-transition-timing);
+}
+
+.cards-testimonial > ul > li:hover {
+  box-shadow: var(--cards-testimonial-item-hover-shadow);
+  transform: var(--cards-testimonial-item-hover-transform);
+}
+
+.cards-testimonial .cards-testimonial-card-body {
+  padding: var(--cards-testimonial-item-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cards-testimonial-content-gap);
+}
+
+.cards-testimonial .cards-testimonial-card-body p {
+  margin: 0;
+  font-family: var(--cards-testimonial-body-font-family);
+  font-size: var(--cards-testimonial-body-font-size);
+  font-weight: var(--cards-testimonial-body-font-weight);
+  font-style: var(--cards-testimonial-body-font-style);
+  line-height: var(--cards-testimonial-body-line-height);
+  letter-spacing: var(--cards-testimonial-body-letter-spacing);
+  color: var(--cards-testimonial-body-color);
+}
+
+.cards-testimonial .cards-testimonial-card-body p:first-child {
+  font-size: var(--cards-testimonial-star-size);
+  letter-spacing: var(--cards-testimonial-star-gap);
+}
+
+.cards-testimonial .cards-testimonial-card-body p:last-child {
+  font-family: var(--cards-testimonial-author-font-family);
+  font-size: var(--cards-testimonial-author-font-size);
+  font-weight: var(--cards-testimonial-author-font-weight);
+  line-height: var(--cards-testimonial-author-line-height);
+  color: var(--cards-testimonial-author-color);
+}
+
+@media (width >= 900px) {
+  .cards-testimonial > ul > li {
+    flex: 0 0 384px;
+  }
+}

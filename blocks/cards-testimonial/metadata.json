@@ -1,0 +1,41 @@
+{
+  "variantName": "cards-testimonial",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-04-22T18:01:00.000Z",
+  "sourceContext": {
+    "originUrl": "figma:CxtVxvvFYpHhd16YJmjFOu/1:30",
+    "originPage": "Figma design - sample4aai",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "testimonial-cards",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "stars + text + author",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "customer testimonials",
+      "user reviews",
+      "star rating cards",
+      "quote cards without images"
+    ],
+    "notSuitableFor": [
+      "product cards with images",
+      "feature cards with CTAs",
+      "pricing cards",
+      "team member cards"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["content/testimonials"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-22T18:01:00.000Z"
+  }
+}

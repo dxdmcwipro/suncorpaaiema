@@ -1,0 +1,69 @@
+/* cards-testimonial component tokens */
+
+/* ALL values extracted from cards-testimonial-measurements.txt */
+
+.cards-testimonial {
+  /* ===== LAYOUT & DIMENSIONS ===== */
+  --cards-testimonial-max-width: 1440px;
+  --cards-testimonial-padding-top: 0;
+  --cards-testimonial-padding-right: 0;
+  --cards-testimonial-padding-bottom: 0;
+  --cards-testimonial-padding-left: 0;
+  --cards-testimonial-gap: 24px;
+  --cards-testimonial-columns: auto;
+
+  /* ===== CONTAINER COLORS ===== */
+  --cards-testimonial-background: transparent;
+
+  /* ===== ITEM/CARD PROPERTIES ===== */
+  --cards-testimonial-item-padding: 36px;
+  --cards-testimonial-item-background: #fff;
+  --cards-testimonial-item-border-width: 0;
+  --cards-testimonial-item-border-style: none;
+  --cards-testimonial-item-border-color: transparent;
+  --cards-testimonial-item-border-radius: 48px;
+  --cards-testimonial-item-shadow: 12px 12px 20px 0px rgb(0 0 0 / 10%);
+  --cards-testimonial-item-min-width: 340px;
+
+  /* ===== TYPOGRAPHY - SECTION HEADING ===== */
+  --cards-testimonial-heading-font-family: 'Inter', sans-serif;
+  --cards-testimonial-heading-font-size: 36px;
+  --cards-testimonial-heading-font-weight: 800;
+  --cards-testimonial-heading-font-style: normal;
+  --cards-testimonial-heading-line-height: 45px;
+  --cards-testimonial-heading-letter-spacing: -0.72px;
+  --cards-testimonial-heading-text-transform: none;
+  --cards-testimonial-heading-color: #02033b;
+
+  /* ===== TYPOGRAPHY - BODY (REVIEW TEXT) ===== */
+  --cards-testimonial-body-font-family: 'Inter', sans-serif;
+  --cards-testimonial-body-font-size: 16px;
+  --cards-testimonial-body-font-weight: 400;
+  --cards-testimonial-body-font-style: normal;
+  --cards-testimonial-body-line-height: 20px;
+  --cards-testimonial-body-letter-spacing: 0;
+  --cards-testimonial-body-color: #02033b;
+
+  /* ===== TYPOGRAPHY - AUTHOR NAME ===== */
+  --cards-testimonial-author-font-family: 'Inter', sans-serif;
+  --cards-testimonial-author-font-size: 15px;
+  --cards-testimonial-author-font-weight: 800;
+  --cards-testimonial-author-line-height: 20px;
+  --cards-testimonial-author-color: #02033b;
+
+  /* ===== STAR RATINGS ===== */
+  --cards-testimonial-star-size: 24px;
+  --cards-testimonial-star-gap: 3.59px;
+  --cards-testimonial-star-color: #f0b323;
+
+  /* ===== SPACING BETWEEN ELEMENTS ===== */
+  --cards-testimonial-content-gap: 24px;
+
+  /* ===== HOVER STATES ===== */
+  --cards-testimonial-item-hover-shadow: 12px 16px 28px 0px rgb(0 0 0 / 15%);
+  --cards-testimonial-item-hover-transform: translateY(-2px);
+
+  /* ===== TRANSITIONS ===== */
+  --cards-testimonial-transition-duration: 300ms;
+  --cards-testimonial-transition-timing: ease;
+}

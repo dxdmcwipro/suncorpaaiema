@@ -417,3 +417,45 @@ main .section.grey {
   margin: 0;
   padding: 40px 0;
 }
+
+main .section.testimonial-section {
+  background-color: #f0b323;
+  margin: 0;
+  padding: 60px 0;
+}
+
+main .section.testimonial-section h2 {
+  font-family: Inter, sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 45px;
+  letter-spacing: -0.72px;
+  color: #02033b;
+  max-width: 600px;
+  margin-bottom: 32px;
+}
+
+main .section.testimonial-section > div {
+  max-width: 100%;
+  padding: 0 96px;
+}
+
+main .section.testimonial-section p strong {
+  font-family: Inter, sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 30px;
+  letter-spacing: -0.48px;
+  color: #02033b;
+}
+
+main .section.testimonial-section p picture {
+  display: inline-block;
+  margin-right: 32px;
+  vertical-align: middle;
+}
+
+main .section.testimonial-section p picture img {
+  height: 48px;
+  width: auto;
+}

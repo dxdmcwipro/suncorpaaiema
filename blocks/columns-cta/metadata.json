@@ -1,0 +1,39 @@
+{
+  "variantName": "columns-cta",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-04-23T05:45:00.000Z",
+  "sourceContext": {
+    "originUrl": "figma:CxtVxvvFYpHhd16YJmjFOu/1:237",
+    "originPage": "Figma design - sample4aai",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "cta-columns",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "heading + text + CTA button",
+    "buttonCount": 2,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "call-to-action paired columns",
+      "about/help CTA sections",
+      "two-column promotional blocks"
+    ],
+    "notSuitableFor": [
+      "image-heavy columns",
+      "multi-column grids",
+      "comparison layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["content/figma"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-23T05:45:00.000Z"
+  }
+}

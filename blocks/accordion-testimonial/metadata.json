@@ -1,0 +1,39 @@
+{
+  "variantName": "accordion-testimonial",
+  "baseBlock": "accordion",
+  "version": "1.0.0",
+  "created": "2026-04-23T06:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.aainsurance.co.nz/",
+    "originPage": "AA Insurance - Customer testimonial accordion",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "testimonial-accordion",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "accordion-label + heading + text + video-grid",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "customer testimonial sections",
+      "collapsible story sections with videos",
+      "expandable content with embedded media"
+    ],
+    "notSuitableFor": [
+      "simple FAQ accordions",
+      "text-only accordions",
+      "multi-item accordion lists"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["content/figma"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-23T06:00:00.000Z"
+  }
+}

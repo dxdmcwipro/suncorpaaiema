@@ -1,0 +1,50 @@
+/* accordion-testimonial component tokens */
+
+/* Extracted from AA Insurance .content-accordion styles */
+
+.accordion-testimonial {
+  /* ===== LAYOUT ===== */
+  --accordion-testimonial-max-width: 1168px;
+  --accordion-testimonial-padding: 0 16px;
+  --accordion-testimonial-padding-desktop: 0;
+
+  /* ===== LABEL / HEADING ===== */
+  --accordion-testimonial-label-font-family: arial, sans-serif;
+  --accordion-testimonial-label-font-size: 1.5rem;
+  --accordion-testimonial-label-font-weight: 700;
+  --accordion-testimonial-label-line-height: 32px;
+  --accordion-testimonial-label-padding: 18px 16px;
+  --accordion-testimonial-label-padding-desktop: 24px;
+  --accordion-testimonial-label-color: #0d59bf;
+  --accordion-testimonial-label-color-open: #262626;
+  --accordion-testimonial-label-border-open: inset 4px 0 0 0 #ffd400;
+  --accordion-testimonial-label-separator: 1px solid #f2f1ed;
+
+  /* ===== CHEVRON ===== */
+  --accordion-testimonial-chevron-size: 16px;
+  --accordion-testimonial-chevron-border-width: 2px;
+  --accordion-testimonial-chevron-color: #0d59bf;
+  --accordion-testimonial-chevron-transition: 0.2s ease;
+
+  /* ===== BODY ===== */
+  --accordion-testimonial-body-padding: 16px 16px 16px 32px;
+  --accordion-testimonial-body-padding-desktop: 24px 24px 24px 32px;
+  --accordion-testimonial-body-font-family: arial, sans-serif;
+  --accordion-testimonial-body-font-size: 1rem;
+  --accordion-testimonial-body-line-height: 1.5rem;
+  --accordion-testimonial-body-color: #262626;
+
+  /* ===== HEADING (H2 INSIDE BODY) ===== */
+  --accordion-testimonial-h2-font-size: 1.75rem;
+  --accordion-testimonial-h2-line-height: 2rem;
+  --accordion-testimonial-h2-font-weight: 700;
+  --accordion-testimonial-h2-color: #262626;
+  --accordion-testimonial-h2-margin: 0 0 8px;
+
+  /* ===== VIDEO GRID ===== */
+  --accordion-testimonial-video-gap: 16px;
+  --accordion-testimonial-video-columns: 2;
+  --accordion-testimonial-video-columns-desktop: 4;
+  --accordion-testimonial-video-ratio: 177.78%;
+  --accordion-testimonial-video-border-radius: 8px;
+}

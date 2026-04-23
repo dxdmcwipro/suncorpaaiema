@@ -1,0 +1,101 @@
+/* Import component-specific tokens */
+@import url('columns-cta-tokens.css');
+
+/* columns-cta block styles */
+
+.columns-cta {
+  max-width: var(--columns-cta-max-width);
+  margin: 0 auto;
+}
+
+.columns-cta > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--columns-cta-gap);
+}
+
+.columns-cta > div > div {
+  padding: var(--columns-cta-card-padding);
+}
+
+.columns-cta > div > div:first-child {
+  background: var(--columns-cta-card-gradient);
+  border-radius: var(--columns-cta-card-border-radius);
+}
+
+.columns-cta > div > div h2 {
+  font-family: var(--columns-cta-heading-font-family);
+  font-size: var(--columns-cta-heading-font-size);
+  font-weight: var(--columns-cta-heading-font-weight);
+  line-height: var(--columns-cta-heading-line-height);
+  letter-spacing: var(--columns-cta-heading-letter-spacing);
+  color: var(--columns-cta-heading-color);
+  margin-bottom: 8px;
+}
+
+.columns-cta > div > div p {
+  font-family: var(--columns-cta-body-font-family);
+  font-size: var(--columns-cta-body-font-size);
+  font-weight: var(--columns-cta-body-font-weight);
+  line-height: var(--columns-cta-body-line-height);
+  color: var(--columns-cta-body-color);
+  margin: 0 0 8px;
+}
+
+.columns-cta > div > div:first-child .button-wrapper a.button {
+  background: var(--columns-cta-button-background);
+  color: var(--columns-cta-button-color);
+  font-family: var(--columns-cta-button-font-family);
+  font-size: var(--columns-cta-button-font-size);
+  font-weight: var(--columns-cta-button-font-weight);
+  line-height: var(--columns-cta-button-line-height);
+  border-radius: var(--columns-cta-button-border-radius);
+  padding: var(--columns-cta-button-padding);
+  border: none;
+  transition: opacity var(--columns-cta-transition-duration) var(--columns-cta-transition-timing);
+  width: auto;
+  min-height: unset;
+}
+
+.columns-cta > div > div:last-child .button-wrapper a.button {
+  background: var(--columns-cta-button-secondary-background);
+  color: var(--columns-cta-button-secondary-color);
+  font-family: var(--columns-cta-button-font-family);
+  font-size: var(--columns-cta-button-font-size);
+  font-weight: var(--columns-cta-button-font-weight);
+  line-height: var(--columns-cta-button-line-height);
+  border-radius: var(--columns-cta-button-secondary-border-radius);
+  padding: var(--columns-cta-button-secondary-padding);
+  border: var(--columns-cta-button-secondary-border);
+  box-shadow: none;
+  transition: background var(--columns-cta-transition-duration) var(--columns-cta-transition-timing),
+              color var(--columns-cta-transition-duration) var(--columns-cta-transition-timing);
+  width: auto;
+  min-height: unset;
+}
+
+.columns-cta > div > div:first-child .button-wrapper a.button:hover {
+  opacity: var(--columns-cta-button-hover-opacity);
+  background: var(--columns-cta-button-background);
+  color: var(--columns-cta-button-color);
+}
+
+.columns-cta > div > div:last-child .button-wrapper a.button:hover {
+  background: var(--columns-cta-button-secondary-hover-background);
+  color: var(--columns-cta-button-secondary-hover-color);
+}
+
+@media (width >= 900px) {
+  .columns-cta > div {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .columns-cta > div > div {
+    flex: 1;
+  }
+
+  .columns-cta > div > div:first-child {
+    flex: 1.5;
+  }
+}

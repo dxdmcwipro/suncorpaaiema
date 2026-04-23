@@ -1,0 +1,131 @@
+/* Import component-specific tokens */
+@import url('accordion-testimonial-tokens.css');
+
+/* accordion-testimonial block styles */
+
+.accordion-testimonial {
+  max-width: var(--accordion-testimonial-max-width);
+  margin: 0 auto;
+  padding: var(--accordion-testimonial-padding);
+}
+
+.accordion-testimonial .accordion-item {
+  margin: 0;
+}
+
+/* ---- Label ---- */
+.accordion-testimonial .accordion-item-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--accordion-testimonial-label-padding);
+  margin: 0;
+  cursor: pointer;
+  list-style: none;
+  color: var(--accordion-testimonial-label-color);
+  font-family: var(--accordion-testimonial-label-font-family);
+  font-size: var(--accordion-testimonial-label-font-size);
+  font-weight: var(--accordion-testimonial-label-font-weight);
+  line-height: var(--accordion-testimonial-label-line-height);
+  position: relative;
+  user-select: none;
+}
+
+.accordion-testimonial .accordion-item:not(:first-child) .accordion-item-label {
+  border-top: var(--accordion-testimonial-label-separator);
+}
+
+.accordion-testimonial .accordion-item-label::-webkit-details-marker {
+  display: none;
+}
+
+/* Yellow left bar on open */
+.accordion-testimonial .accordion-item[open] .accordion-item-label {
+  box-shadow: var(--accordion-testimonial-label-border-open);
+  color: var(--accordion-testimonial-label-color-open);
+}
+
+/* Chevron */
+.accordion-testimonial .accordion-item-label::after {
+  content: '';
+  flex-shrink: 0;
+  width: var(--accordion-testimonial-chevron-size);
+  height: var(--accordion-testimonial-chevron-size);
+  margin-left: 16px;
+  border: solid var(--accordion-testimonial-chevron-color);
+  border-width: 0 var(--accordion-testimonial-chevron-border-width) var(--accordion-testimonial-chevron-border-width) 0;
+  transform: rotate(45deg);
+  transition: transform var(--accordion-testimonial-chevron-transition);
+}
+
+.accordion-testimonial .accordion-item[open] .accordion-item-label::after {
+  transform: rotate(-135deg);
+}
+
+/* ---- Body ---- */
+.accordion-testimonial .accordion-item-body {
+  padding: var(--accordion-testimonial-body-padding);
+}
+
+.accordion-testimonial .accordion-item-body h2 {
+  font-family: var(--accordion-testimonial-body-font-family);
+  font-size: var(--accordion-testimonial-h2-font-size);
+  font-weight: var(--accordion-testimonial-h2-font-weight);
+  line-height: var(--accordion-testimonial-h2-line-height);
+  color: var(--accordion-testimonial-h2-color);
+  margin: var(--accordion-testimonial-h2-margin);
+}
+
+.accordion-testimonial .accordion-item-body p {
+  font-family: var(--accordion-testimonial-body-font-family);
+  font-size: var(--accordion-testimonial-body-font-size);
+  line-height: var(--accordion-testimonial-body-line-height);
+  color: var(--accordion-testimonial-body-color);
+  margin: 0 0 8px;
+}
+
+/* ---- Video Grid ---- */
+.accordion-testimonial .video-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--accordion-testimonial-video-columns), 1fr);
+  gap: var(--accordion-testimonial-video-gap);
+  margin-top: 24px;
+}
+
+.accordion-testimonial .video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: var(--accordion-testimonial-video-ratio);
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--accordion-testimonial-video-border-radius);
+  background-color: #262626;
+}
+
+.accordion-testimonial .video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---- Desktop ---- */
+@media (width >= 900px) {
+  .accordion-testimonial {
+    padding: var(--accordion-testimonial-padding-desktop);
+  }
+
+  .accordion-testimonial .accordion-item-label {
+    padding: var(--accordion-testimonial-label-padding-desktop);
+  }
+
+  .accordion-testimonial .accordion-item-body {
+    padding: var(--accordion-testimonial-body-padding-desktop);
+  }
+
+  .accordion-testimonial .video-grid {
+    grid-template-columns: repeat(var(--accordion-testimonial-video-columns-desktop), 1fr);
+  }
+}

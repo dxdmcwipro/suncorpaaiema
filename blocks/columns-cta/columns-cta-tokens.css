@@ -1,0 +1,60 @@
+/* columns-cta component tokens */
+
+/* ALL values extracted from Figma node 1:237 */
+
+.columns-cta {
+  /* ===== LAYOUT & DIMENSIONS ===== */
+  --columns-cta-max-width: 912px;
+  --columns-cta-gap: 72px;
+  --columns-cta-padding: 36px;
+  --columns-cta-section-padding: 84px 0;
+
+  /* ===== CARD 1 (GRADIENT) ===== */
+  --columns-cta-card-gradient: linear-gradient(180deg, #f7c95f 0%, #fdb235 100%);
+  --columns-cta-card-border-radius: 48px;
+  --columns-cta-card-padding: 36px;
+
+  /* ===== CARD 2 (PLAIN) ===== */
+  --columns-cta-card-plain-background: transparent;
+
+  /* ===== TYPOGRAPHY - HEADING ===== */
+  --columns-cta-heading-font-family: 'Inter', sans-serif;
+  --columns-cta-heading-font-size: 23px;
+  --columns-cta-heading-font-weight: 800;
+  --columns-cta-heading-line-height: 30px;
+  --columns-cta-heading-letter-spacing: -0.48px;
+  --columns-cta-heading-color: #02033b;
+
+  /* ===== TYPOGRAPHY - BODY ===== */
+  --columns-cta-body-font-family: 'Inter', sans-serif;
+  --columns-cta-body-font-size: 16px;
+  --columns-cta-body-font-weight: 400;
+  --columns-cta-body-line-height: 24px;
+  --columns-cta-body-color: #02033b;
+
+  /* ===== PRIMARY BUTTON (FILLED) ===== */
+  --columns-cta-button-font-family: 'Inter', sans-serif;
+  --columns-cta-button-font-size: 15px;
+  --columns-cta-button-font-weight: 800;
+  --columns-cta-button-line-height: 18px;
+  --columns-cta-button-color: #fff;
+  --columns-cta-button-background: #4335de;
+  --columns-cta-button-border-radius: 42px;
+  --columns-cta-button-padding: 16px 44px 16px 20px;
+
+  /* ===== SECONDARY BUTTON (OUTLINED) ===== */
+  --columns-cta-button-secondary-color: #02033b;
+  --columns-cta-button-secondary-background: transparent;
+  --columns-cta-button-secondary-border: 2px solid #02033b;
+  --columns-cta-button-secondary-border-radius: 42px;
+  --columns-cta-button-secondary-padding: 16px 22px 16px 20px;
+
+  /* ===== HOVER STATES ===== */
+  --columns-cta-button-hover-opacity: 0.9;
+  --columns-cta-button-secondary-hover-background: #02033b;
+  --columns-cta-button-secondary-hover-color: #fff;
+
+  /* ===== TRANSITIONS ===== */
+  --columns-cta-transition-duration: 300ms;
+  --columns-cta-transition-timing: ease;
+}

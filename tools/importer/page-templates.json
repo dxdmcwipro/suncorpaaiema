@@ -93,6 +93,49 @@
           "defaultContent": []
         }
       ]
+    },
+    {
+      "name": "blog-article",
+      "urls": [
+        "https://www.aainsurance.co.nz/blog/at-home/scam-protection"
+      ],
+      "description": "AA Insurance blog article page with breadcrumb, article body (hero image, date, rich text with H4 subheadings, bullet lists, inline links), sidebar with product links, topic navigation, and related article cards",
+      "blocks": [
+        {
+          "name": "cards-blog-sidebar",
+          "instances": [
+            "div.related-posts.related-posts-blog"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Article Body",
+          "selector": "div.post-body",
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "h1",
+            "div.post-date",
+            "img.image-auto-size",
+            "p.paragraph",
+            "h4",
+            "ul",
+            "div.content-block"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "Sidebar - Related Articles",
+          "selector": "div.related-posts.related-posts-blog",
+          "style": null,
+          "blocks": [
+            "cards-blog-sidebar"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   ]
 }

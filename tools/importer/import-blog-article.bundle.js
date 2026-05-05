@@ -163,6 +163,15 @@ var CustomImportScript = (() => {
       element.querySelectorAll('img[src*="/x/ctf/"]').forEach((img) => {
         img.src = img.src.replace(/https?:\/\/www\.aainsurance\.co\.nz\/x\/ctf\//, "https://images.ctfassets.net/");
       });
+      element.querySelectorAll('img[src*="aainsurance.co.nz/i/"]').forEach((img) => {
+        try {
+          const url = new URL(img.src);
+          url.searchParams.delete("xid");
+          img.src = url.toString();
+        } catch (e) {
+          img.src = img.src.replace(/[?&]xid=[^&]*/, "").replace(/\?&/, "?").replace(/\?$/, "");
+        }
+      });
       element.querySelectorAll("img").forEach((img) => {
         img.removeAttribute("class");
         img.removeAttribute("fetchpriority");

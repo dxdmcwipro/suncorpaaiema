@@ -136,6 +136,20 @@ export default function transform(hookName, element, payload) {
       img.src = img.src.replace(/https?:\/\/www\.aainsurance\.co\.nz\/x\/ctf\//, 'https://images.ctfassets.net/');
     });
 
+    // Normalize AA Insurance image URLs that use pipe-delimited tracking params
+    // Original: /i/image.jpg?xid=abc|trackingId|hash&q=50
+    // Fixed:    /i/image.jpg?q=50 (strip xid param with pipes)
+    element.querySelectorAll('img[src*="aainsurance.co.nz/i/"]').forEach((img) => {
+      try {
+        const url = new URL(img.src);
+        url.searchParams.delete('xid');
+        img.src = url.toString();
+      } catch (e) {
+        // Fallback: strip everything after the pipe in xid param
+        img.src = img.src.replace(/[?&]xid=[^&]*/, '').replace(/\?&/, '?').replace(/\?$/, '');
+      }
+    });
+
     // Clean image classes and attributes
     element.querySelectorAll('img').forEach((img) => {
       img.removeAttribute('class');

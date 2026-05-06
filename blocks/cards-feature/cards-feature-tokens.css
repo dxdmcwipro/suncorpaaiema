@@ -1,0 +1,34 @@
+.cards-feature-container {
+  --cards-feature-section-bg: #e8edf5;
+  --cards-feature-card-bg: #fff;
+  --cards-feature-card-radius: 48px;
+  --cards-feature-card-shadow: 12px 12px 20px 0 rgb(0 0 0 / 10%);
+  --cards-feature-card-padding: 48px 40px;
+  --cards-feature-heading-font: 'Inter', sans-serif;
+  --cards-feature-heading-weight: 800;
+  --cards-feature-heading-size: 36px;
+  --cards-feature-heading-line-height: 45px;
+  --cards-feature-heading-letter-spacing: -0.72px;
+  --cards-feature-heading-color: #02033b;
+  --cards-feature-title-size: 19px;
+  --cards-feature-title-line-height: 25px;
+  --cards-feature-title-weight: 800;
+  --cards-feature-title-letter-spacing: -0.4px;
+  --cards-feature-body-size: 16px;
+  --cards-feature-body-line-height: 24px;
+  --cards-feature-body-color: #02033b;
+  --cards-feature-icon-size: 80px;
+  --cards-feature-grid-columns: 3;
+  --cards-feature-grid-gap: 40px;
+  --cards-feature-cta-primary-bg: #ffc247;
+  --cards-feature-cta-primary-color: #02033b;
+  --cards-feature-cta-primary-radius: 42px;
+  --cards-feature-cta-primary-padding: 16px 52px 16px 20px;
+  --cards-feature-cta-primary-font-size: 19px;
+  --cards-feature-cta-primary-font-weight: 800;
+  --cards-feature-cta-secondary-bg: transparent;
+  --cards-feature-cta-secondary-color: #02033b;
+  --cards-feature-cta-secondary-border: 2px solid #02033b;
+  --cards-feature-cta-secondary-radius: 42px;
+  --cards-feature-cta-secondary-padding: 16px 24px;
+}

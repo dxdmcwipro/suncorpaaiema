@@ -1,0 +1,41 @@
+{
+  "variantName": "cards-feature",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-05-06T17:49:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.figma.com/design/CxtVxvvFYpHhd16YJmjFOu/sample4aai?node-id=1-192",
+    "originPage": "Figma design - sample4aai",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "feature-grid",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + heading + text (3-column grid with CTAs)",
+    "buttonCount": 2,
+    "imageCount": 6
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "feature grids with icons",
+      "service/capability showcases",
+      "product benefit sections",
+      "security feature listings"
+    ],
+    "notSuitableFor": [
+      "image-heavy cards",
+      "news/blog cards",
+      "pricing cards",
+      "team member cards"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["content/figma"],
+    "reuseCount": 1,
+    "lastUsed": "2026-05-06T17:49:00.000Z"
+  }
+}
